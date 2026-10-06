@@ -9,6 +9,7 @@ import { selectedPhotos, type ProjectData, getPhotoPreviewUrl } from '@/lib/api-
 import { SelectedPhotosDetailModal } from './SelectedPhotosDetailModal'
 import { useLanguage } from '@/lib/language-context'
 import { getStatusStyle } from '@/lib/status-styles'
+import { useAutoRefresh } from '@/lib/use-auto-refresh'
 
 interface SelectedPhotosViewProps {
   onOpenDeliveryWorkspace?: (projectId: string | number) => void
@@ -48,10 +49,33 @@ export function SelectedPhotosView({
   const [selectedStatus, setSelectedStatus] = useState<string>('all')
   const [searchQuery, setSearchQuery] = useState('')
   const [activeDetailProjectId, setActiveDetailProjectId] = useState<string | number | null>(null)
+  const [isAutoRefreshing, setIsAutoRefreshing] = useState(false)
+  const [lastRefreshed, setLastRefreshed] = useState<Date>(new Date())
 
   useEffect(() => {
     loadProjects()
   }, [selectedStatus])
+
+  // Auto-refresh: polling tiap 30 detik, pause saat detail modal terbuka
+  useAutoRefresh({
+    intervalMs: 30_000,
+    enabled: !activeDetailProjectId,
+    onRefresh: async () => {
+      try {
+        setIsAutoRefreshing(true)
+        const res = await selectedPhotos.list({
+          status: selectedStatus === 'all' ? undefined : selectedStatus,
+        })
+        setProjects(res.data)
+        setCounts(res.counts)
+        setLastRefreshed(new Date())
+      } catch {
+        // silent fail
+      } finally {
+        setIsAutoRefreshing(false)
+      }
+    },
+  })
 
   async function loadProjects() {
     setLoading(true)

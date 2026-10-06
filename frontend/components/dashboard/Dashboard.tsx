@@ -3,18 +3,19 @@
 // ──────────────────────────────────────────────
 // Main Dashboard Orchestrator
 // ──────────────────────────────────────────────
-import { useMemo, useState } from 'react'
+import { useMemo, useState, useCallback, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import {
   Check, ChevronRight, FolderOpen, Image, Link2,
   LogOut, Menu, MoreHorizontal, Plus, Search,
   Settings2, Users, X, Send, Layers,
-  CheckCircle2
+  CheckCircle2, Wifi
 } from 'lucide-react'
 import { ApiError, auth, projects as projectsApi } from '@/lib/api-client'
 import { setProjectLock } from '@/app/actions/projects'
 import type { ProjectData } from '@/lib/projects'
 import type { ProfileDataType } from './types'
+import { useAutoRefresh } from '@/lib/use-auto-refresh'
 
 import { Toast, Stat } from './ui-primitives'
 import { ProjectCard } from './ProjectCard'
@@ -53,8 +54,62 @@ export function PhotoSelectorDashboard({ initialProjects, userEmail, initialProf
   const [openMenuProjectId, setOpenMenuProjectId] = useState<string | null>(null)
   const [deliveryWorkspaceProjectId, setDeliveryWorkspaceProjectId] = useState<string | number | null>(null)
   const [toast, setToast] = useState<{ message: string; type: 'error' | 'success' | 'info' } | null>(null)
+  const [isRefreshing, setIsRefreshing] = useState(false)
+  const [lastRefreshed, setLastRefreshed] = useState<Date>(new Date())
 
   const appUrl = typeof window !== 'undefined' ? window.location.origin : process.env.NEXT_PUBLIC_APP_URL ?? ''
+
+  // ── Auto Refresh: ambil ulang data project dari backend ──
+  const refreshProjects = useCallback(async () => {
+    try {
+      setIsRefreshing(true)
+      const res = await projectsApi.list()
+      if (res && res.data) {
+        const fresh: ProjectData[] = res.data.map((p: any) => ({
+          id: String(p.id),
+          name: p.name,
+          clientName: p.client_name,
+          status: p.status,
+          clientToken: p.client_token,
+          driveLink: p.drive_folder_url,
+          driveFolderId: p.drive_folder_id,
+          whatsappNumber: p.whatsapp_number,
+          maxPhotos: p.max_photos,
+          selectionLocked: p.selection_locked,
+          lastSyncedAt: p.last_synced_at,
+          completedAt: p.completed_at,
+          createdAt: p.created_at,
+          updatedAt: p.updated_at,
+          photoCount: p.photo_count ?? 0,
+          selectedCount: p.selected_count ?? 0,
+          editedCount: p.edited_count ?? 0,
+          previewThumbnails: p.preview_thumbnails ?? [],
+        }))
+        // Cek apakah ada perubahan data (berdasarkan updated_at)
+        setProjects((prev) => {
+          const hasChange = fresh.some((fp) => {
+            const old = prev.find((op) => String(op.id) === String(fp.id))
+            return !old || old.selectedCount !== fp.selectedCount || old.status !== fp.status || old.updatedAt !== fp.updatedAt
+          }) || fresh.length !== prev.length
+          return hasChange ? fresh : prev
+        })
+        setLastRefreshed(new Date())
+      }
+    } catch {
+      // Silent fail – jangan ganggu UX dengan error saat background refresh
+    } finally {
+      setIsRefreshing(false)
+    }
+  }, [])
+
+  // Pause auto-refresh saat ada modal yang terbuka
+  const isModalOpen = !!(showNewProject || editingProject || deletingProject || viewingPhotosProject)
+
+  useAutoRefresh({
+    intervalMs: 30_000, // polling tiap 30 detik
+    enabled: !isModalOpen,
+    onRefresh: refreshProjects,
+  })
 
   const profile: ProfileDataType = initialProfile ?? {
     email: userEmail,
@@ -135,7 +190,7 @@ export function PhotoSelectorDashboard({ initialProjects, userEmail, initialProf
           }
           setProjects((prev) => prev.map((p) => (String(p.id) === String(project.id) ? fresh : p)))
         }
-      } catch {}
+      } catch { }
     } catch (err) {
       const message = err instanceof ApiError ? err.message : 'Koneksi bermasalah saat sinkronisasi.'
       showToast(message, 'error')
@@ -150,10 +205,10 @@ export function PhotoSelectorDashboard({ initialProjects, userEmail, initialProf
       prev.map((p) =>
         String(p.id) === String(project.id)
           ? {
-              ...p,
-              selectionLocked: nextLocked,
-              status: nextLocked ? 'locked' : p.status === 'locked' ? 'active' : p.status,
-            }
+            ...p,
+            selectionLocked: nextLocked,
+            status: nextLocked ? 'locked' : p.status === 'locked' ? 'active' : p.status,
+          }
           : p
       )
     )
@@ -184,11 +239,11 @@ export function PhotoSelectorDashboard({ initialProjects, userEmail, initialProf
   const deliveryBadgeCount = projects.filter((p) => ['editing', 'delivered'].includes(p.status)).length
 
   const today = new Date().toLocaleDateString(language === 'id' ? 'id-ID' : 'en-US', { weekday: 'long', month: 'long', day: 'numeric' })
-  const greeting = new Date().getHours() < 12 
-    ? (language === 'id' ? 'Selamat pagi' : 'Good morning') 
-    : new Date().getHours() < 17 
-    ? (language === 'id' ? 'Selamat siang' : 'Good afternoon') 
-    : (language === 'id' ? 'Selamat malam' : 'Good evening')
+  const greeting = new Date().getHours() < 12
+    ? (language === 'id' ? 'Selamat pagi' : 'Good morning')
+    : new Date().getHours() < 17
+      ? (language === 'id' ? 'Selamat siang' : 'Good afternoon')
+      : (language === 'id' ? 'Selamat malam' : 'Good evening')
   const firstName = profile.fullName.split(' ')[0] || profile.studioName.split(' ')[0] || (language === 'id' ? 'Pengguna' : 'there')
 
   const navItems = [
@@ -298,11 +353,10 @@ export function PhotoSelectorDashboard({ initialProjects, userEmail, initialProf
               <button
                 key={item.id}
                 onClick={() => setActive(item.id as any)}
-                className={`flex h-10 items-center justify-between rounded-xl px-3.5 text-left text-sm transition-all duration-200 motion-reduce:transition-none motion-reduce:hover:transform-none ${
-                  isActive
+                className={`flex h-10 items-center justify-between rounded-xl px-3.5 text-left text-sm transition-all duration-200 motion-reduce:transition-none motion-reduce:hover:transform-none ${isActive
                     ? 'bg-brand-soft text-brand-700 font-medium shadow-[inset_3px_0_0_#2563EB]'
                     : 'text-slate-600 hover:bg-brand-50 hover:text-brand-700 hover:translate-x-1'
-                }`}
+                  }`}
               >
                 <div className="flex items-center gap-2.5">
                   <span className={isActive ? 'text-brand-600' : 'text-slate-500'}>
@@ -312,9 +366,8 @@ export function PhotoSelectorDashboard({ initialProjects, userEmail, initialProf
                 </div>
                 {item.count !== null && item.count > 0 && (
                   <span
-                    className={`px-2 py-0.5 rounded-full text-[10.5px] font-bold ${
-                      isActive ? 'bg-brand-600 text-white' : 'bg-brand-100 text-brand-700'
-                    }`}
+                    className={`px-2 py-0.5 rounded-full text-[10.5px] font-bold ${isActive ? 'bg-brand-600 text-white' : 'bg-brand-100 text-brand-700'
+                      }`}
                   >
                     {item.count}
                   </span>
@@ -326,11 +379,10 @@ export function PhotoSelectorDashboard({ initialProjects, userEmail, initialProf
         <div className="mt-auto flex flex-col gap-1.5">
           <button
             onClick={() => setActive('Settings')}
-            className={`flex h-10 items-center gap-2.5 rounded-xl px-3.5 text-sm transition-all duration-200 motion-reduce:transition-none motion-reduce:hover:transform-none ${
-              active === 'Settings'
+            className={`flex h-10 items-center gap-2.5 rounded-xl px-3.5 text-sm transition-all duration-200 motion-reduce:transition-none motion-reduce:hover:transform-none ${active === 'Settings'
                 ? 'bg-brand-soft text-brand-700 font-medium shadow-[inset_3px_0_0_#2563EB]'
                 : 'text-slate-600 hover:bg-brand-50 hover:text-brand-700 hover:translate-x-1'
-            }`}
+              }`}
           >
             <Settings2 size={16} strokeWidth={1.8} />
             <span>{t('settings')}</span>
@@ -381,17 +433,30 @@ export function PhotoSelectorDashboard({ initialProjects, userEmail, initialProf
               {active === 'Projects'
                 ? t('projects')
                 : active === 'Foto Terpilih'
-                ? t('selectedPhotos')
-                : active === 'Delivery'
-                ? t('delivery')
-                : active === 'Clients'
-                ? t('clients')
-                : active === 'Settings'
-                ? t('settings')
-                : t('profile')}
+                  ? t('selectedPhotos')
+                  : active === 'Delivery'
+                    ? t('delivery')
+                    : active === 'Clients'
+                      ? t('clients')
+                      : active === 'Settings'
+                        ? t('settings')
+                        : t('profile')}
             </span>
           </div>
           <div className="flex items-center gap-2 sm:gap-3">
+            {/* Live indicator */}
+            <div
+              className="hidden md:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-200"
+              title={`Terakhir diperbarui: ${lastRefreshed.toLocaleTimeString('id-ID')}`}
+            >
+              <span
+                className={`size-2 rounded-full ${isRefreshing ? 'bg-amber-400 animate-pulse' : 'bg-emerald-500 animate-[pulse_2s_ease-in-out_infinite]'
+                  }`}
+              />
+              <span className="text-[10px] font-semibold text-emerald-700 uppercase tracking-widest">
+                {isRefreshing ? 'Memperbarui…' : 'Live'}
+              </span>
+            </div>
             <LanguageSwitcher />
             <button
               onClick={copyLastLink}
@@ -434,11 +499,10 @@ export function PhotoSelectorDashboard({ initialProjects, userEmail, initialProf
                       setActive(tab.id as any)
                       setIsMobileMenuOpen(false)
                     }}
-                    className={`flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-[13.5px] font-medium transition-all duration-200 ${
-                      isActive
+                    className={`flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-[13.5px] font-medium transition-all duration-200 ${isActive
                         ? 'bg-brand-soft text-brand-700 shadow-[inset_3px_0_0_#2563EB]'
                         : 'text-slate-600 hover:bg-brand-50 hover:text-brand-700'
-                    }`}
+                      }`}
                   >
                     <span className={isActive ? 'text-brand-600' : 'text-slate-500'}>
                       {tab.icon}

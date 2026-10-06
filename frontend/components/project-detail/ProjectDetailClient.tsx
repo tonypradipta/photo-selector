@@ -3,7 +3,7 @@
 // ──────────────────────────────────────────────
 // Project Detail Client Component
 // ──────────────────────────────────────────────
-import { useState, useTransition } from 'react'
+import { useState, useTransition, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import {
   ArrowLeft, Check, Copy, ExternalLink, Lock, Unlock, RefreshCw,
@@ -18,6 +18,7 @@ import type { ProjectDetail, SelectedPhoto } from '@/app/projects/[id]/page'
 import { useLanguage } from '@/lib/language-context'
 import { LanguageSwitcher } from '@/components/ui/LanguageSwitcher'
 import { getStatusStyle } from '@/lib/status-styles'
+import { useAutoRefresh } from '@/lib/use-auto-refresh'
 
 // ──────────────────────────────────────────────
 // Toast
@@ -58,6 +59,52 @@ export default function ProjectDetailClient({
 
   const appUrl = typeof window !== 'undefined' ? window.location.origin : process.env.NEXT_PUBLIC_APP_URL ?? ''
   const galleryUrl = `${appUrl}/select/${project.clientToken}`
+  const [isAutoRefreshing, setIsAutoRefreshing] = useState(false)
+  const [lastRefreshed, setLastRefreshed] = useState<Date>(new Date())
+  const [liveSelectedPhotos, setLiveSelectedPhotos] = useState<SelectedPhoto[]>(selectedPhotos)
+
+  // Auto-refresh: polling tiap 20 detik untuk tangkap aktivitas klien
+  useAutoRefresh({
+    intervalMs: 20_000,
+    enabled: !syncing,
+    onRefresh: useCallback(async () => {
+      try {
+        setIsAutoRefreshing(true)
+        const res = await projectsApi.photos(project.id)
+        if (res && res.project) {
+          const p = res.project
+          setProject((prev) => ({
+            ...prev,
+            photoCount: res.totalCount ?? res.photos.length,
+            selectedCount: res.selectedCount ?? res.photos.filter((ph: any) => ph.is_selected).length,
+            lastSyncedAt: p.last_synced_at,
+            status: p.status ?? prev.status,
+          }))
+          // Update daftar foto terpilih jika ada perubahan
+          const selected: SelectedPhoto[] = res.photos
+            .filter((ph: any) => ph.is_selected)
+            .map((ph: any) => ({
+              id: ph.id,
+              photoCode: ph.photo_code,
+              fileName: ph.file_name,
+              previewUrl: ph.preview_url,
+              selectedAt: ph.selected_at ?? ph.updated_at ?? new Date().toISOString(),
+            }))
+          setLiveSelectedPhotos((prev) =>
+            prev.length !== selected.length ||
+            selected.some((s: any, i: number) => prev[i]?.id !== s.id)
+              ? selected
+              : prev
+          )
+          setLastRefreshed(new Date())
+        }
+      } catch {
+        // silent fail
+      } finally {
+        setIsAutoRefreshing(false)
+      }
+    }, [project.id, syncing]),
+  })
 
   function showToast(message: string, type: 'error' | 'success' | 'info' = 'info') {
     setToast({ message, type })
@@ -70,13 +117,13 @@ export default function ProjectDetailClient({
   }
 
   function copyFileNames() {
-    const fileNames = selectedPhotos.map((p) => p.fileName).filter(Boolean)
+    const fileNames = liveSelectedPhotos.map((p) => p.fileName).filter(Boolean)
     navigator.clipboard?.writeText(fileNames.join(', '))
     showToast(`Berhasil menyalin ${fileNames.length} nama file!`, 'success')
   }
 
   async function handleDownloadZip() {
-    if (!selectedPhotos.length) return
+    if (!liveSelectedPhotos.length) return
     setDownloadingZip(true)
     setDownloadProgress(0)
 
@@ -86,11 +133,11 @@ export default function ProjectDetailClient({
       const folderName = `${project.name}_Foto_Terpilih`
       const imgFolder = zip.folder(folderName) || zip
 
-      let summary = `FOTO TERPILIH - ${project.name}\nClient: ${project.clientName}\nTotal: ${selectedPhotos.length} foto\n\n`
+      let summary = `FOTO TERPILIH - ${project.name}\nClient: ${project.clientName}\nTotal: ${liveSelectedPhotos.length} foto\n\n`
 
       let count = 0
-      for (let i = 0; i < selectedPhotos.length; i++) {
-        const item = selectedPhotos[i]
+      for (let i = 0; i < liveSelectedPhotos.length; i++) {
+        const item = liveSelectedPhotos[i]
         summary += `${i + 1}. ${item.fileName} (Code: ${item.photoCode})\n`
 
         if (item.previewUrl) {
@@ -105,7 +152,7 @@ export default function ProjectDetailClient({
           }
         }
         count++
-        setDownloadProgress(Math.round((count / selectedPhotos.length) * 100))
+        setDownloadProgress(Math.round((count / liveSelectedPhotos.length) * 100))
       }
 
       imgFolder.file('Daftar_Foto.txt', summary)
@@ -344,13 +391,13 @@ export default function ProjectDetailClient({
               <h2 className="text-sm sm:text-base font-bold tracking-tight text-slate-900">
                 {t('selectedPhotosTitle')}
               </h2>
-              {selectedPhotos.length > 0 && (
+              {liveSelectedPhotos.length > 0 && (
                 <span className="rounded-full bg-blue-100 px-2.5 py-0.5 text-xs font-bold text-blue-700">
-                  {selectedPhotos.length}
+                  {liveSelectedPhotos.length}
                 </span>
               )}
             </div>
-            {selectedPhotos.length > 0 && (
+            {liveSelectedPhotos.length > 0 && (
               <div className="flex items-center gap-2 flex-wrap">
                 <button
                   onClick={copyFileNames}
@@ -381,7 +428,7 @@ export default function ProjectDetailClient({
             )}
           </div>
 
-          {selectedPhotos.length === 0 ? (
+          {liveSelectedPhotos.length === 0 ? (
             <div className="px-4 py-14 text-center">
               <div className="mx-auto mb-3 flex size-12 items-center justify-center rounded-2xl bg-blue-50 text-slate-400">
                 <Users size={22} />
@@ -390,7 +437,7 @@ export default function ProjectDetailClient({
             </div>
           ) : (
             <div className="grid grid-cols-2 gap-3 p-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 sm:p-5">
-              {selectedPhotos.map((photo, idx) => (
+              {liveSelectedPhotos.map((photo, idx) => (
                 <div key={photo.id} className={`overflow-hidden rounded-2xl border border-slate-200/90 bg-white shadow-2xs smooth-card hover:shadow-card-hover hover:border-blue-300 animate-card-enter stagger-${(idx % 12) + 1} motion-reduce:transition-none motion-reduce:hover:transform-none`}>
                   {photo.previewUrl ? (
                     <img
