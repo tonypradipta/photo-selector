@@ -1,6 +1,9 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
 
+/* ──────────────────────────────────────────────
+   Typography: Manrope (headings) + Inter (body)
+   ────────────────────────────────────────────── */
 .form-input {
   display: block;
   height: 42px;
@@ -68,6 +71,10 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  --font-heading: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-body: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, 'Cascadia Code', 'Fira Code', monospace;
+
   --color-brand-50: #EFF6FF;
   --color-brand-100: #DBEAFE;
   --color-brand-200: #BFDBFE;
@@ -245,8 +252,73 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-body;
+    font-family: var(--font-body);
+    font-weight: 400;
   }
+
+  /* ── Hero & Section Headings: Manrope ── */
+  h1 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.25;
+  }
+  h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    line-height: 1.35;
+  }
+
+  /* ── Body text: Inter 400 ── */
+  p, span, div, label, li {
+    font-family: inherit;
+  }
+
+  /* ── Buttons & interactive: Inter 500-600 ── */
+  button, [role="button"], input[type="submit"], input[type="button"], select {
+    font-family: var(--font-body);
+    font-weight: 500;
+  }
+
+  /* ── Inputs & textareas: Inter 400 ── */
+  input, textarea {
+    font-family: var(--font-body);
+    font-weight: 400;
+  }
+}
+
+/* ──────────────────────────────────────────────
+   Typography Utility Classes (Manrope + Inter)
+   ────────────────────────────────────────────── */
+.font-heading {
+  font-family: var(--font-heading) !important;
+}
+.font-body {
+  font-family: var(--font-body) !important;
+}
+
+/* Specific elements as required */
+.hero-heading {
+  font-family: var(--font-heading) !important;
+  font-weight: 700 !important;
+}
+.section-heading {
+  font-family: var(--font-heading) !important;
+  font-weight: 600 !important;
+}
+.photo-filename {
+  font-family: var(--font-body) !important;
+  font-weight: 500 !important;
+}
+.metadata-text {
+  font-family: var(--font-body) !important;
+  font-weight: 400 !important;
+}
+.badge-status {
+  font-family: var(--font-body) !important;
+  font-weight: 500 !important;
 }
 
 /* ──────────────────────────────────────────────

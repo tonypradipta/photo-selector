@@ -42,12 +42,12 @@ export function PhotoLightboxModal({
       {/* Top bar */}
       <div className="flex w-full items-center justify-between px-2 py-1 text-white">
         <div className="flex items-center gap-3">
-          <span className="font-mono text-sm font-semibold tracking-wide">{photo.photoCode}</span>
-          <span className="rounded-full bg-white/10 px-2.5 py-0.5 text-xs text-slate-300">
+          <span className="font-body text-sm font-medium tracking-wide">{photo.photoCode}</span>
+          <span className="rounded-full bg-white/10 px-2.5 py-0.5 font-body text-xs font-normal text-slate-300">
             {currentIndex + 1} / {photos.length}
           </span>
           {photo.isSelected && (
-            <span className="flex items-center gap-1 rounded-full bg-emerald-500/20 px-2.5 py-0.5 text-[11px] font-medium text-emerald-300 border border-emerald-500/30">
+            <span className="flex items-center gap-1 rounded-full bg-emerald-500/20 px-2.5 py-0.5 font-body text-[11px] font-medium text-emerald-300 border border-emerald-500/30">
               <Check size={12} /> Dipilih Klien
             </span>
           )}
@@ -104,9 +104,8 @@ export function PhotoLightboxModal({
         )}
       </div>
 
-      {/* Bottom bar */}
-      <div className="text-center text-xs text-slate-400 pb-2">
-        <span>Nama Berkas: <strong className="text-slate-200">{photo.fileName}</strong></span>
+      <div className="text-center font-body text-xs font-normal text-slate-400 pb-2">
+        <span>Nama Berkas: <strong className="font-medium text-slate-200">{photo.fileName}</strong></span>
       </div>
     </div>
   )

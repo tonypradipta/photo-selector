@@ -48,7 +48,7 @@ export function ProjectCard({ project, onCopy, onEdit, onDelete, onSync, onLock,
         <ProjectThumbnailBanner thumbnails={project.previewThumbnails} photoCount={project.photoCount} />
 
         {/* Status badge in top-left */}
-        <div className={`absolute left-2.5 top-2.5 sm:left-3 sm:top-3 rounded-full border px-2 sm:px-2.5 py-0.5 text-[10px] sm:text-[10.5px] font-semibold backdrop-blur-md shadow-xs ${getStatusStyle(project.status)}`}>
+        <div className={`absolute left-2.5 top-2.5 sm:left-3 sm:top-3 rounded-full border px-2 sm:px-2.5 py-0.5 text-[10px] sm:text-[10.5px] font-medium font-body backdrop-blur-md shadow-xs ${getStatusStyle(project.status)}`}>
           {badgeText}
         </div>
 
@@ -74,8 +74,8 @@ export function ProjectCard({ project, onCopy, onEdit, onDelete, onSync, onLock,
       <div className="p-3.5 sm:p-5">
         <div className="flex items-start justify-between gap-2">
           <div className="min-w-0 flex-1">
-            <h3 className="truncate text-[14.5px] sm:text-[16px] font-bold tracking-[-0.025em] text-slate-900">{project.name}</h3>
-            <p className="mt-0.5 truncate text-[11.5px] sm:text-[12px] text-slate-500">{project.clientName}</p>
+            <h3 className="truncate text-[14.5px] sm:text-[16px] font-semibold font-heading tracking-[-0.025em] text-slate-900">{project.name}</h3>
+            <p className="mt-0.5 truncate text-[11.5px] sm:text-[12px] font-normal font-body text-slate-500">{project.clientName}</p>
           </div>
           <ProjectCardMenu
             project={project}
@@ -93,7 +93,7 @@ export function ProjectCard({ project, onCopy, onEdit, onDelete, onSync, onLock,
         </div>
 
         {/* Info row */}
-        <div className="mt-3 sm:mt-4 flex items-center justify-between text-[11px] sm:text-[11.5px] text-slate-500">
+        <div className="mt-3 sm:mt-4 flex items-center justify-between text-[11px] sm:text-[11.5px] font-normal font-body text-slate-500">
           <span className="font-medium text-slate-600">{project.photoCount} {t('photosSynced')}</span>
           <span>{date}</span>
         </div>
@@ -108,12 +108,12 @@ export function ProjectCard({ project, onCopy, onEdit, onDelete, onSync, onLock,
 
         {/* Bottom actions row */}
         <div className="mt-3 sm:mt-3.5 flex items-center justify-between gap-2 pt-2 border-t border-slate-100 min-w-0">
-          <span className="truncate text-[11px] sm:text-[12px] font-semibold text-brand-600 min-w-0 flex-1">
+          <span className="truncate text-[11px] sm:text-[12px] font-medium font-body text-brand-600 min-w-0 flex-1">
             {project.selectedCount > 0 ? `${project.selectedCount} ${t('fromQuotaSelected', { max: project.maxPhotos })}` : t('noPhotosSelectedYet')}
           </span>
           <button
             onClick={() => onCopy(project.clientToken)}
-            className="flex shrink-0 items-center gap-1 sm:gap-1.5 text-[11px] sm:text-[12px] font-semibold text-brand-700 hover:text-brand-500 transition-colors"
+            className="flex shrink-0 items-center gap-1 sm:gap-1.5 text-[11px] sm:text-[12px] font-semibold font-body text-brand-700 hover:text-brand-500 transition-colors"
           >
             <Copy size={12} className="shrink-0 sm:hidden" />
             <Copy size={13} className="shrink-0 hidden sm:block" />

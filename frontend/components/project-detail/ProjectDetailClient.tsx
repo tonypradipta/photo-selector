@@ -312,19 +312,19 @@ export default function ProjectDetailClient({
         <div className="mb-6 sm:mb-8 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
           <div>
             <div className="flex flex-wrap items-center gap-2 mb-2">
-              <span className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold ${statusInfo}`}>
+              <span className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-medium font-body ${statusInfo}`}>
                 {badgeText}
               </span>
               {project.selectionLocked && (
-                <span className="flex items-center gap-1 rounded-full border border-rose-200 bg-rose-50 px-2.5 py-0.5 text-[11px] font-bold text-rose-700">
+                <span className="flex items-center gap-1 rounded-full border border-rose-200 bg-rose-50 px-2.5 py-0.5 text-[11px] font-medium font-body text-rose-700">
                   <Lock size={11} /> {t('statusLocked')}
                 </span>
               )}
             </div>
-            <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">
+            <h1 className="text-2xl sm:text-3xl font-bold font-heading tracking-tight text-slate-900">
               {project.name}
             </h1>
-            <p className="mt-1 text-xs sm:text-sm font-medium text-slate-500">{project.clientName}</p>
+            <p className="mt-1 text-xs sm:text-sm font-normal font-body text-slate-500">{project.clientName}</p>
           </div>
 
           {/* Copy + share */}
@@ -448,12 +448,12 @@ export default function ProjectDetailClient({
                     />
                   ) : (
                     <div className="aspect-square w-full bg-avatar flex items-center justify-center">
-                      <span className="font-mono text-[11px] font-bold text-white">{photo.photoCode}</span>
+                      <span className="font-body text-[11px] font-medium text-white">{photo.photoCode}</span>
                     </div>
                   )}
                   <div className="px-2.5 py-2">
-                    <p className="truncate font-mono text-[11px] font-bold text-blue-700">{photo.photoCode}</p>
-                    <p className="truncate text-[10px] text-slate-400">{photo.fileName}</p>
+                    <p className="truncate font-body text-[11px] font-medium text-blue-700">{photo.photoCode}</p>
+                    <p className="truncate font-body text-[10px] font-medium text-slate-400">{photo.fileName}</p>
                   </div>
                 </div>
               ))}

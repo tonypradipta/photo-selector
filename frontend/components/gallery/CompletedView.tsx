@@ -53,7 +53,7 @@ export function CompletedView({
         <div className="flex items-center gap-2 shrink-0">
           <LanguageSwitcher />
 
-          <div className="flex items-center gap-1.5 rounded-full border border-rose-200 bg-rose-50 px-3 py-1 text-xs font-bold text-rose-700 shadow-2xs">
+          <div className="flex items-center gap-1.5 rounded-full border border-rose-200 bg-rose-50 px-3 py-1 text-xs font-medium font-body text-rose-700 shadow-2xs">
             <Lock size={12} className="shrink-0" />
             <span>{t('statusLocked')}</span>
           </div>
@@ -66,11 +66,11 @@ export function CompletedView({
           <Check size={32} strokeWidth={3} />
         </div>
 
-        <h1 className="text-2xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">
+        <h1 className="text-2xl font-bold font-heading tracking-tight text-slate-900 sm:text-4xl">
           Pilihan Foto Berhasil Dikirim!
         </h1>
 
-        <div className="mt-3.5 inline-flex items-center gap-2 rounded-full border border-emerald-300/80 bg-emerald-50 px-4 py-1.5 text-xs font-bold text-emerald-800 shadow-xs">
+        <div className="mt-3.5 inline-flex items-center gap-2 rounded-full border border-emerald-300/80 bg-emerald-50 px-4 py-1.5 text-xs font-medium font-body text-emerald-800 shadow-xs">
           <span className="relative flex size-2 shrink-0">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
             <span className="relative inline-flex rounded-full size-2 bg-emerald-500"></span>
@@ -78,21 +78,21 @@ export function CompletedView({
           <span>Pilihan Terkonfirmasi</span>
         </div>
 
-        <p className="mx-auto mt-3 max-w-[500px] text-xs sm:text-sm leading-relaxed text-slate-500">
-          Terima kasih, <strong className="text-slate-800">{project.clientName}</strong>. Anda telah memilih{' '}
-          <strong className="text-blue-600">{selectedCodes.length} foto</strong>. Pilihan Anda telah berhasil dikirim ke fotografer.
+        <p className="mx-auto mt-3 max-w-[500px] text-xs sm:text-sm font-normal font-body leading-relaxed text-slate-500">
+          Terima kasih, <strong className="font-semibold text-slate-800">{project.clientName}</strong>. Anda telah memilih{' '}
+          <strong className="font-semibold text-blue-600">{selectedCodes.length} foto</strong>. Pilihan Anda telah berhasil dikirim ke fotografer.
         </p>
 
         {/* Photo codes box */}
         <div className="mx-auto mt-8 max-w-[540px] rounded-3xl border border-slate-200/90 bg-white p-5 sm:p-7 text-left shadow-card-hover backdrop-blur-md">
           <div className="flex items-center justify-between border-b border-slate-100 pb-4">
             <div>
-              <p className="text-[11px] font-bold uppercase tracking-wider text-blue-600">
+              <p className="text-[11px] font-medium font-body uppercase tracking-wider text-blue-600">
                 Project: {project.name}
               </p>
-              <p className="mt-0.5 text-base font-bold text-slate-900">
+              <h2 className="mt-0.5 text-base font-semibold font-heading text-slate-900">
                 {selectedCodes.length} Foto Terpilih
-              </p>
+              </h2>
             </div>
           </div>
 
@@ -103,10 +103,10 @@ export function CompletedView({
                   key={code}
                   className="flex items-center gap-2 rounded-xl border border-slate-100 bg-slate-50/80 px-3 py-2 transition hover:border-blue-200 hover:bg-brand-soft"
                 >
-                  <span className="flex size-5 shrink-0 items-center justify-center rounded-full bg-blue-100 text-[10px] font-bold text-blue-700">
+                  <span className="flex size-5 shrink-0 items-center justify-center rounded-full bg-blue-100 text-[10px] font-medium font-body text-blue-700">
                     {idx + 1}
                   </span>
-                  <span className="truncate font-mono text-xs font-bold text-slate-800">
+                  <span className="truncate font-body text-xs font-medium text-slate-800">
                     {code}
                   </span>
                 </div>
@@ -118,7 +118,7 @@ export function CompletedView({
           <div className="mt-6 flex flex-col gap-3">
             <button
               onClick={onCopyAllCodes}
-              className="flex w-full items-center justify-center gap-2 h-11 rounded-xl bg-brand-50 text-brand-700 border border-brand-200 px-4 text-xs font-bold hover:bg-brand-soft hover:border-brand-400 hover:-translate-y-0.5 hover:shadow-xs active:scale-[0.98] transition-all motion-reduce:transition-none motion-reduce:hover:transform-none"
+              className="flex w-full items-center justify-center gap-2 h-11 rounded-xl bg-brand-50 text-brand-700 border border-brand-200 px-4 text-xs font-semibold font-body hover:bg-brand-soft hover:border-brand-400 hover:-translate-y-0.5 hover:shadow-xs active:scale-[0.98] transition-all motion-reduce:transition-none motion-reduce:hover:transform-none"
             >
               <Copy size={15} />
               <span>Salin Semua Kode Foto</span>
@@ -126,7 +126,7 @@ export function CompletedView({
 
             <button
               onClick={onOpenWhatsApp}
-              className="group relative flex w-full items-center justify-center gap-2.5 h-12 rounded-xl bg-gradient-to-r from-emerald-500 via-green-600 to-emerald-600 px-5 text-xs sm:text-sm font-bold text-white shadow-md shadow-emerald-500/25 hover:shadow-lg hover:shadow-emerald-500/35 hover:-translate-y-0.5 active:scale-[0.98] transition-all motion-reduce:transition-none motion-reduce:hover:transform-none"
+              className="group relative flex w-full items-center justify-center gap-2.5 h-12 rounded-xl bg-gradient-to-r from-emerald-500 via-green-600 to-emerald-600 px-5 text-xs sm:text-sm font-semibold font-body text-white shadow-md shadow-emerald-500/25 hover:shadow-lg hover:shadow-emerald-500/35 hover:-translate-y-0.5 active:scale-[0.98] transition-all motion-reduce:transition-none motion-reduce:hover:transform-none"
             >
               <MessageCircle size={18} className="fill-white/20 text-white shrink-0" />
               <span>
@@ -166,12 +166,12 @@ export function CompletedView({
                     />
                   ) : (
                     <div className="flex h-full w-full items-center justify-center bg-avatar">
-                      <span className="font-mono text-[10px] font-bold text-white">
+                      <span className="font-body text-[10px] font-medium text-white">
                         {p.photoCode}
                       </span>
                     </div>
                   )}
-                  <span className="absolute bottom-1 left-1 rounded-md bg-slate-900/80 px-1.5 py-0.5 font-mono text-[9px] font-bold text-white backdrop-blur-xs">
+                  <span className="absolute bottom-1 left-1 rounded-md bg-slate-900/80 px-1.5 py-0.5 font-body text-[9px] font-medium text-white backdrop-blur-xs">
                     {p.photoCode}
                   </span>
                 </div>

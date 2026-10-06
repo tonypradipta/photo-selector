@@ -295,11 +295,11 @@ export default function SelectGalleryClient({
           <LanguageSwitcher />
 
           {project.isLocked ? (
-            <span className="flex items-center gap-1.5 rounded-full border border-rose-200 bg-rose-50 px-3 py-1 text-xs font-bold text-rose-700 shadow-2xs">
+            <span className="flex items-center gap-1.5 rounded-full border border-rose-200 bg-rose-50 px-3 py-1 text-xs font-medium font-body text-rose-700 shadow-2xs">
               <Lock size={12} /> {t('statusLocked')}
             </span>
           ) : !isCompleted ? (
-            <span className="flex items-center gap-1.5 rounded-full border border-blue-200 bg-blue-50 px-3 py-1 text-xs font-bold text-blue-700 shadow-2xs">
+            <span className="flex items-center gap-1.5 rounded-full border border-blue-200 bg-blue-50 px-3 py-1 text-xs font-medium font-body text-blue-700 shadow-2xs">
               <Sparkles size={12} />
               <span className="hidden sm:inline">Pilihan Aman &amp; Privat</span>
               <span className="sm:hidden">Pilihan Aktif</span>
@@ -316,14 +316,14 @@ export default function SelectGalleryClient({
               {project.studioName}
             </p>
           )}
-          <h1 className="mt-1.5 text-2xl sm:text-4xl font-extrabold tracking-tight text-slate-900 leading-tight">
+          <h1 className="mt-1.5 text-2xl sm:text-4xl font-bold font-heading tracking-tight text-slate-900 leading-tight">
             {project.name}
           </h1>
-          <p className="mx-auto mt-2 text-xs sm:text-sm leading-relaxed text-slate-500 max-w-[500px]">
+          <p className="mx-auto mt-2 text-xs sm:text-sm font-normal font-body leading-relaxed text-slate-500 max-w-[500px]">
             {t('selectInstruction')}
           </p>
 
-          <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-blue-200 bg-white px-4 py-1.5 text-xs font-bold text-blue-700 shadow-2xs">
+          <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-blue-200 bg-white px-4 py-1.5 text-xs font-medium font-body text-blue-700 shadow-2xs">
             <span>{t('selectedCountOfMax', { selected: selectedCount, max: project.maxPhotos })}</span>
           </div>
         </div>
@@ -333,7 +333,7 @@ export default function SelectGalleryClient({
           <div className="flex w-full sm:w-auto items-center gap-1.5 rounded-2xl border border-slate-200 bg-white p-1 shadow-2xs">
             <button
               onClick={() => setFilter('all')}
-              className={`flex-1 sm:flex-initial text-center rounded-xl px-4 py-2 text-xs font-bold transition-all ${
+              className={`flex-1 sm:flex-initial text-center rounded-xl px-4 py-2 text-xs font-semibold font-body transition-all ${
                 filter === 'all'
                   ? 'bg-brand-gradient bg-[length:200%_100%] bg-left text-white shadow-glow'
                   : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
@@ -343,7 +343,7 @@ export default function SelectGalleryClient({
             </button>
             <button
               onClick={() => setFilter('selected')}
-              className={`flex-1 sm:flex-initial text-center rounded-xl px-4 py-2 text-xs font-bold transition-all ${
+              className={`flex-1 sm:flex-initial text-center rounded-xl px-4 py-2 text-xs font-semibold font-body transition-all ${
                 filter === 'selected'
                   ? 'bg-brand-gradient bg-[length:200%_100%] bg-left text-white shadow-glow'
                   : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
@@ -409,7 +409,7 @@ export default function SelectGalleryClient({
                   />
                 ) : (
                   <div className="flex h-full w-full items-center justify-center bg-avatar">
-                    <span className="font-mono text-xs font-bold text-white">
+                    <span className="font-body text-xs font-medium text-white">
                       {photo.photoCode}
                     </span>
                   </div>
@@ -440,7 +440,7 @@ export default function SelectGalleryClient({
                 </button>
 
                 {/* Photo code badge */}
-                <div className="absolute bottom-2 left-2 sm:bottom-2.5 sm:left-2.5 rounded-lg bg-slate-900/80 px-2 py-0.5 font-mono text-[11px] font-bold text-white backdrop-blur-xs">
+                <div className="absolute bottom-2 left-2 sm:bottom-2.5 sm:left-2.5 rounded-lg bg-slate-900/80 px-2 py-0.5 font-body text-[11px] font-medium text-white backdrop-blur-xs">
                   {photo.photoCode}
                 </div>
               </div>
@@ -526,16 +526,16 @@ export default function SelectGalleryClient({
               />
             ) : (
               <div className="flex size-64 items-center justify-center rounded-2xl bg-avatar">
-                <span className="font-mono text-base font-bold text-white">
+                <span className="font-body text-base font-medium text-white">
                   {lightboxPhoto.photoCode}
                 </span>
               </div>
             )}
             <div className="mt-3 flex items-center gap-3">
-              <span className="rounded-lg bg-white/10 px-3 py-1 font-mono text-xs font-bold text-white">
+              <span className="rounded-lg bg-white/10 px-3 py-1 font-body text-xs font-medium text-white">
                 {lightboxPhoto.photoCode}
               </span>
-              <span className="text-xs text-slate-400">
+              <span className="font-body text-xs font-normal text-slate-400">
                 {lightboxIndex + 1} / {visiblePhotos.length}
               </span>
             </div>
@@ -556,7 +556,7 @@ export default function SelectGalleryClient({
             <button
               type="button"
               onClick={() => toggleSelection(lightboxPhoto.id)}
-              className={`absolute bottom-6 flex items-center gap-2 rounded-xl px-5 py-2.5 text-xs font-bold shadow-xl transition-all ${
+              className={`absolute bottom-6 flex items-center gap-2 rounded-xl px-5 py-2.5 text-xs font-semibold font-body shadow-xl transition-all ${
                 selectedIds.has(lightboxPhoto.id)
                   ? 'bg-brand-gradient text-white shadow-glow'
                   : 'bg-white text-slate-900 hover:bg-slate-100'

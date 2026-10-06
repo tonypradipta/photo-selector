@@ -43,7 +43,7 @@ export function PasswordUnlockScreen({ token }: { token: string }) {
             alt="Perumda Photo"
             className="size-9 rounded-xl border border-blue-200 bg-white object-contain p-0.5 shadow-2xs"
           />
-          <span className="text-base font-bold text-slate-900">
+          <span className="text-base font-semibold font-heading text-slate-900">
             Perumda Photo
           </span>
         </div>
@@ -54,16 +54,16 @@ export function PasswordUnlockScreen({ token }: { token: string }) {
           <div className="mb-5 flex size-12 items-center justify-center rounded-2xl bg-blue-50 text-blue-600 shadow-2xs">
             <Lock size={22} />
           </div>
-          <h1 className="text-xl font-bold tracking-tight text-slate-900">
+          <h1 className="text-xl font-bold font-heading tracking-tight text-slate-900">
             Galeri Dilindungi Kata Sandi
           </h1>
-          <p className="mt-1.5 text-xs sm:text-sm text-slate-500 leading-relaxed">
+          <p className="mt-1.5 text-xs sm:text-sm font-normal font-body text-slate-500 leading-relaxed">
             Masukkan kata sandi yang diberikan oleh fotografer untuk melihat dan memilih foto.
           </p>
           <div className="mt-6 grid gap-1.5">
             <label
               htmlFor="gallery-password"
-              className="text-xs font-bold text-slate-800"
+              className="text-xs font-medium font-body text-slate-800"
             >
               Kata Sandi
             </label>
@@ -90,7 +90,7 @@ export function PasswordUnlockScreen({ token }: { token: string }) {
           <button
             type="submit"
             disabled={loading}
-            className="mt-6 h-11 w-full rounded-xl bg-brand-gradient bg-[length:200%_100%] bg-left text-xs sm:text-sm font-bold text-white shadow-glow hover:bg-right hover:-translate-y-0.5 hover:shadow-glow-lg active:scale-[0.98] disabled:opacity-60 transition-all motion-reduce:transition-none motion-reduce:hover:transform-none"
+            className="mt-6 h-11 w-full rounded-xl bg-brand-gradient bg-[length:200%_100%] bg-left text-xs sm:text-sm font-semibold font-body text-white shadow-glow hover:bg-right hover:-translate-y-0.5 hover:shadow-glow-lg active:scale-[0.98] disabled:opacity-60 transition-all motion-reduce:transition-none motion-reduce:hover:transform-none"
           >
             {loading ? 'Memverifikasi…' : 'Buka Galeri'}
           </button>

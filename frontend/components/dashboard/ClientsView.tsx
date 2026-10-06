@@ -94,17 +94,17 @@ export function ClientsView({
                       <div className="min-w-0 flex-1">
                         <h3
                           title={project.clientName}
-                          className="truncate text-[14px] sm:text-[15px] font-bold tracking-[-0.02em] text-[#0f172a]"
+                          className="truncate text-[14px] sm:text-[15px] font-semibold font-heading tracking-[-0.02em] text-[#0f172a]"
                         >
                           {project.clientName}
                         </h3>
-                        <p title={project.name} className="truncate text-[11px] sm:text-[12px] text-slate-500">
+                        <p title={project.name} className="truncate text-[11px] sm:text-[12px] font-normal font-body text-slate-500">
                           {project.name}
                         </p>
                       </div>
                     </div>
                     <span
-                      className={`shrink-0 rounded-full border text-[10.5px] sm:text-xs px-2 sm:px-2.5 py-0.5 font-semibold ${getStatusStyle(badgeStatusKey)}`}
+                      className={`shrink-0 rounded-full border text-[10.5px] sm:text-xs px-2 sm:px-2.5 py-0.5 font-medium font-body ${getStatusStyle(badgeStatusKey)}`}
                     >
                       {badgeLabel}
                     </span>
@@ -168,7 +168,7 @@ export function ClientsView({
                 <div className="mt-4 sm:mt-5 flex items-center gap-1.5 sm:gap-2 border-t border-slate-100 pt-3 sm:pt-4">
                   <button
                     onClick={() => onViewPhotos(project)}
-                    className="flex-1 flex items-center justify-center gap-1 sm:gap-1.5 bg-brand-50 text-brand-700 border border-brand-200 rounded-xl px-2.5 sm:px-3 py-1.5 sm:py-2 text-[11px] sm:text-xs font-medium transition-all duration-200 hover:bg-brand-soft hover:border-brand-400 hover:-translate-y-0.5 active:scale-[0.98]"
+                    className="h-9 flex-1 flex items-center justify-center gap-1 sm:gap-1.5 bg-brand-50 text-brand-700 border border-brand-200 rounded-xl px-2.5 sm:px-3 text-[11px] sm:text-xs font-semibold font-body transition-all duration-200 hover:bg-brand-soft hover:border-brand-400 hover:-translate-y-0.5 active:scale-[0.98]"
                     title={t('tooltipDrivePhotos')}
                   >
                     <FolderOpen size={13} className="shrink-0" />
@@ -178,7 +178,7 @@ export function ClientsView({
                   {onOpenDelivery && (
                     <button
                       onClick={() => onOpenDelivery(project.id)}
-                      className="flex-1 flex items-center justify-center gap-1 sm:gap-1.5 bg-slate-50 text-slate-700 border border-slate-200 rounded-xl px-2.5 sm:px-3 py-1.5 sm:py-2 text-[11px] sm:text-xs font-medium transition-all duration-200 hover:bg-slate-100 hover:border-slate-300 hover:-translate-y-0.5 active:scale-[0.98]"
+                      className="h-9 flex-1 flex items-center justify-center gap-1 sm:gap-1.5 bg-slate-50 text-slate-700 border border-slate-200 rounded-xl px-2.5 sm:px-3 text-[11px] sm:text-xs font-semibold font-body transition-all duration-200 hover:bg-slate-100 hover:border-slate-300 hover:-translate-y-0.5 active:scale-[0.98]"
                       title={t('tooltipDelivery')}
                     >
                       <Send size={13} className="shrink-0" />
@@ -188,7 +188,7 @@ export function ClientsView({
 
                   <button
                     onClick={() => router.push(`/projects/${project.id}`)}
-                    className="size-8 sm:size-9 shrink-0 flex items-center justify-center bg-brand-gradient bg-[length:200%_100%] bg-left text-white rounded-xl font-medium shadow-glow transition-all duration-500 hover:bg-right hover:-translate-y-0.5 active:scale-[0.98]"
+                    className="size-9 shrink-0 flex items-center justify-center bg-brand-gradient bg-[length:200%_100%] bg-left text-white rounded-xl font-semibold font-body shadow-glow transition-all duration-500 hover:bg-right hover:-translate-y-0.5 active:scale-[0.98]"
                     title={t('tooltipProjectDetail')}
                     aria-label={t('tooltipProjectDetail')}
                   >

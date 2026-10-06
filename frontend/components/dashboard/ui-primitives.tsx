@@ -26,12 +26,12 @@ export function Field({ label, example, help, required, children }: {
 }) {
   return (
     <div className="grid gap-1.5">
-      <label className="text-xs font-bold text-slate-800">
+      <label className="text-xs font-medium font-body text-slate-800">
         {label}{required && <span className="ml-1 text-rose-500">*</span>}
       </label>
       {children}
       {(example || help) && (
-        <p className="text-[11px] font-medium text-slate-500">
+        <p className="text-[11px] font-normal font-body text-slate-500">
           {example}{help && example ? ` · ${help}` : help}
         </p>
       )}
@@ -45,9 +45,9 @@ export function Field({ label, example, help, required, children }: {
 export function PageHeading({ eyebrow, title, description }: { eyebrow: string; title: string; description: string }) {
   return (
     <div className="animate-fade-in-down">
-      <p className="mb-1 text-xs font-bold uppercase tracking-wider text-blue-600">{eyebrow}</p>
-      <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900">{title}</h1>
-      <p className="mt-1.5 text-xs sm:text-sm text-slate-500">{description}</p>
+      <p className="mb-1 text-xs font-medium font-body uppercase tracking-wider text-blue-600">{eyebrow}</p>
+      <h1 className="text-2xl sm:text-3xl font-bold font-heading tracking-tight text-slate-900">{title}</h1>
+      <p className="mt-1.5 text-xs sm:text-sm font-normal font-body text-slate-500">{description}</p>
     </div>
   )
 }
@@ -58,8 +58,8 @@ export function PageHeading({ eyebrow, title, description }: { eyebrow: string; 
 export function SettingsCard({ title, description, children, className = '' }: { title: string; description: string; children: React.ReactNode; className?: string }) {
   return (
     <div className={`rounded-[20px] border border-slate-200/90 bg-white p-5 sm:p-6 shadow-2xs hover:border-blue-200 smooth-card ${className}`}>
-      <h2 className="text-base font-bold tracking-tight text-slate-900">{title}</h2>
-      <p className="mt-1 text-xs leading-relaxed text-slate-500">{description}</p>
+      <h2 className="text-base font-semibold font-heading tracking-tight text-slate-900">{title}</h2>
+      <p className="mt-1 text-xs font-normal font-body leading-relaxed text-slate-500">{description}</p>
       <div className="mt-5">{children}</div>
     </div>
   )

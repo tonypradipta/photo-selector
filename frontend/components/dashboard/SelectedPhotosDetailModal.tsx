@@ -153,19 +153,19 @@ export function SelectedPhotosDetailModal({
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-slate-950/60 backdrop-blur-md animate-modal-backdrop">
       <div className="relative flex flex-col w-full max-w-5xl max-h-[92vh] bg-white rounded-2xl shadow-2xl border border-blue-100 overflow-hidden animate-modal-dialog">
         {/* Modal Header */}
-        <div className="flex items-center justify-between px-6 py-4.5 border-b border-brand-100 bg-gradient-to-r from-brand-50/80 via-white to-aqua-100/40">
-          <div className="flex items-center gap-3">
-            <div className="flex size-10 items-center justify-center rounded-xl bg-brand-gradient text-white shadow-glow">
+        <div className="flex items-center justify-between px-6 py-4 sm:py-5 border-b border-brand-100 bg-gradient-to-r from-brand-50/80 via-white to-aqua-100/40">
+          <div className="flex items-center gap-3 min-w-0">
+            <div className="flex size-10 items-center justify-center rounded-xl bg-brand-gradient text-white shadow-glow shrink-0">
               <ImageIcon size={20} />
             </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <h2 className="text-lg font-bold text-slate-900 tracking-tight">
+            <div className="min-w-0">
+              <div className="flex items-center gap-2.5 flex-wrap">
+                <h2 className="text-base sm:text-lg font-semibold font-heading text-slate-900 leading-normal">
                   {loading ? 'Memuat Foto Terpilih...' : project?.name}
                 </h2>
                 {project && (
                   <span
-                    className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold ${
+                    className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium font-body shrink-0 ${
                       project.status === 'completed'
                         ? 'bg-cyan-100 text-cyan-700 border border-cyan-300'
                         : 'bg-amber-100 text-amber-700 border border-amber-300'
@@ -175,16 +175,16 @@ export function SelectedPhotosDetailModal({
                   </span>
                 )}
               </div>
-              <p className="text-xs text-slate-500 font-medium">
-                Klien: <span className="text-slate-800 font-semibold">{project?.client_name || '...'}</span> • Total{' '}
-                <span className="text-brand-600 font-bold">{selections.length}</span> foto dipilih
+              <p className="mt-0.5 text-xs font-normal font-body text-slate-500 truncate">
+                Klien: <span className="text-slate-800 font-medium">{project?.client_name || '...'}</span> • Total{' '}
+                <span className="text-brand-600 font-medium">{selections.length}</span> foto dipilih
               </p>
             </div>
           </div>
 
           <button
             onClick={onClose}
-            className="flex size-8.5 items-center justify-center rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition"
+            className="flex size-9 shrink-0 items-center justify-center rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition"
           >
             <X size={18} />
           </button>
@@ -322,11 +322,11 @@ export function SelectedPhotosDetailModal({
 
                     {/* Metadata & Notes */}
                     <div className="p-2.5 flex flex-col gap-1">
-                      <p className="text-xs font-semibold text-slate-800 truncate" title={photo?.file_name}>
+                      <p className="text-xs font-medium font-body text-slate-800 truncate" title={photo?.file_name}>
                         {photo?.file_name || 'Foto Tanpa Nama'}
                       </p>
                       {photo?.photo_code && (
-                        <p className="text-[10.5px] font-mono text-slate-400 truncate">
+                        <p className="text-[10.5px] font-medium font-body text-slate-400 truncate">
                           Code: {photo.photo_code}
                         </p>
                       )}

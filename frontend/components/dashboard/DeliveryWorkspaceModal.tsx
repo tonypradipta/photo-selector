@@ -214,19 +214,19 @@ export function DeliveryWorkspaceModal({
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-slate-950/60 backdrop-blur-md animate-modal-backdrop">
       <div className="relative flex flex-col w-full max-w-4xl max-h-[92vh] bg-white rounded-2xl shadow-2xl border border-blue-100 overflow-hidden animate-modal-dialog">
         {/* Modal Header */}
-        <div className="flex items-center justify-between px-6 py-4.5 border-b border-brand-100 bg-gradient-to-r from-brand-50/80 via-white to-aqua-100/40">
-          <div className="flex items-center gap-3">
-            <div className="flex size-10 items-center justify-center rounded-xl bg-brand-gradient text-white shadow-glow">
+        <div className="flex items-center justify-between px-6 py-4 sm:py-5 border-b border-brand-100 bg-gradient-to-r from-brand-50/80 via-white to-aqua-100/40">
+          <div className="flex items-center gap-3 min-w-0">
+            <div className="flex size-10 items-center justify-center rounded-xl bg-brand-gradient text-white shadow-glow shrink-0">
               <Send size={18} />
             </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <h2 className="text-lg font-bold text-slate-900 tracking-tight">
+            <div className="min-w-0">
+              <div className="flex items-center gap-2.5 flex-wrap">
+                <h2 className="text-base sm:text-lg font-semibold font-heading text-slate-900 leading-normal">
                   {loading ? 'Memuat Workspace...' : `Hasil Edit: ${project?.name}`}
                 </h2>
                 {project && (
                   <span
-                    className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold ${project.status === 'delivered'
+                    className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-medium font-body shrink-0 ${project.status === 'delivered'
                         ? 'bg-cyan-100 text-cyan-700 border border-cyan-300'
                         : project.status === 'completed'
                           ? 'bg-emerald-100 text-emerald-700 border border-emerald-300'
@@ -241,15 +241,15 @@ export function DeliveryWorkspaceModal({
                   </span>
                 )}
               </div>
-              <p className="text-xs text-slate-500 font-medium">
-                Klien: <span className="text-slate-800 font-semibold">{project?.client_name || '...'}</span>
+              <p className="mt-0.5 text-xs font-normal font-body text-slate-500 truncate">
+                Klien: <span className="text-slate-800 font-medium">{project?.client_name || '...'}</span>
               </p>
             </div>
           </div>
 
           <button
             onClick={onClose}
-            className="flex size-8.5 items-center justify-center rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition"
+            className="flex size-9 shrink-0 items-center justify-center rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition"
           >
             <X size={18} />
           </button>
@@ -354,9 +354,9 @@ export function DeliveryWorkspaceModal({
               {/* Summary match banner */}
               <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                 <div>
-                  <h3 className="text-sm font-bold text-slate-900">Status Pencocokan File (Auto-Matcher)</h3>
-                  <p className="text-xs text-slate-500 mt-0.5">
-                    Sistem otomatis mencocokkan nama file edit (e.g. <span className="font-mono text-brand-600 font-semibold">IMG_001_edited.jpg</span>) dengan pilihan raw (<span className="font-mono text-slate-700">IMG_001.CR3</span>).
+                  <h3 className="text-sm font-semibold font-heading text-slate-900">Status Pencocokan File (Auto-Matcher)</h3>
+                  <p className="text-xs font-normal font-body text-slate-500 mt-0.5">
+                    Sistem otomatis mencocokkan nama file edit (e.g. <span className="font-body text-brand-600 font-medium">IMG_001_edited.jpg</span>) dengan pilihan raw (<span className="font-body text-slate-700 font-medium">IMG_001.CR3</span>).
                   </p>
                 </div>
 
@@ -408,7 +408,7 @@ export function DeliveryWorkspaceModal({
                   </p>
                   <div className="flex flex-wrap gap-1.5 mt-1">
                     {syncStatus.missing.map((m) => (
-                      <span key={m.selection_id} className="px-2 py-1 rounded bg-amber-100 text-amber-900 font-mono text-[11px] font-semibold border border-amber-300">
+                      <span key={m.selection_id} className="px-2 py-1 rounded bg-amber-100 text-amber-900 font-body text-[11px] font-medium border border-amber-300">
                         {m.raw_name}
                       </span>
                     ))}
@@ -567,37 +567,39 @@ export function DeliveryWorkspaceModal({
 
               {/* Delivery Share Link & WhatsApp Section */}
               {activeDelivery && (
-                <div className="bg-white p-6 rounded-2xl border border-emerald-200 bg-emerald-50/10 shadow-2xs flex flex-col gap-4">
+                <div className="bg-white p-5 sm:p-6 rounded-2xl border border-emerald-200 bg-gradient-to-b from-emerald-50/30 to-white shadow-2xs flex flex-col gap-4">
                   <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2 text-emerald-700 font-bold text-sm">
-                      <CheckCircle size={18} />
-                      <span>Link Delivery Siap Dikirikan ke Klien</span>
+                    <div className="flex items-center gap-2 text-emerald-800 font-semibold font-heading text-sm">
+                      <CheckCircle size={18} className="text-emerald-600" />
+                      <span>Link Delivery Siap Dikirimkan ke Klien</span>
                     </div>
-                    <span className="text-[11px] font-semibold text-emerald-700 bg-emerald-100 px-2.5 py-0.5 rounded-full">
+                    <span className="text-[11px] font-medium font-body text-emerald-700 bg-emerald-100/80 border border-emerald-200 px-2.5 py-0.5 rounded-full">
                       Link Aktif
                     </span>
                   </div>
 
                   {/* Delivery URL Box */}
                   <div className="flex items-center gap-2">
-                    <input
-                      type="text"
-                      readOnly
-                      value={deliveryUrl}
-                      className="flex-1 px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-mono text-slate-700"
-                    />
+                    <div className="relative flex-1 min-w-0">
+                      <input
+                        type="text"
+                        readOnly
+                        value={deliveryUrl}
+                        className="w-full h-10 px-3.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-body text-slate-700 select-all focus:outline-hidden"
+                      />
+                    </div>
                     <button
                       onClick={copyDeliveryLink}
-                      className="flex items-center gap-1.5 px-4 py-2 bg-slate-800 hover:bg-slate-900 text-white text-xs font-bold rounded-xl transition shadow-2xs"
+                      className="h-10 flex items-center gap-1.5 px-4 bg-brand-600 hover:bg-brand-700 text-white text-xs font-semibold font-body rounded-xl transition shadow-xs shrink-0 cursor-pointer"
                     >
-                      {copiedLink ? <Check size={13} className="text-emerald-400" /> : <Copy size={13} />}
+                      {copiedLink ? <Check size={14} className="text-white" /> : <Copy size={14} />}
                       <span>{copiedLink ? 'Tersalin' : 'Copy Link'}</span>
                     </button>
                     <a
                       href={deliveryUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex size-8.5 items-center justify-center rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-100 transition"
+                      className="h-10 w-10 flex items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition shrink-0 shadow-2xs"
                       title="Buka Halaman Client Delivery"
                     >
                       <ExternalLink size={15} />
@@ -606,36 +608,36 @@ export function DeliveryWorkspaceModal({
 
                   {/* Formatted WhatsApp Message */}
                   {whatsappTemplate && (
-                    <div className="flex flex-col gap-2 mt-2 pt-4 border-t border-slate-100">
+                    <div className="flex flex-col gap-2 mt-1 pt-4 border-t border-slate-100">
                       <div className="flex items-center justify-between">
-                        <label className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
+                        <label className="text-xs font-medium font-body text-slate-700 flex items-center gap-1.5">
                           <MessageSquare size={13} className="text-emerald-600" />
                           <span>Template Pesan WhatsApp Klien:</span>
                         </label>
                         <button
                           onClick={copyWhatsappMessage}
-                          className="text-xs font-semibold text-emerald-600 hover:text-emerald-700 flex items-center gap-1"
+                          className="text-xs font-medium font-body text-emerald-600 hover:text-emerald-700 flex items-center gap-1 cursor-pointer"
                         >
                           {copiedWa ? <Check size={12} /> : <Copy size={12} />}
                           <span>{copiedWa ? 'Tersalin!' : 'Copy Pesan WhatsApp'}</span>
                         </button>
                       </div>
 
-                      <pre className="p-3.5 rounded-xl bg-emerald-50/60 border border-emerald-100 text-emerald-950 font-sans text-xs whitespace-pre-wrap leading-relaxed">
+                      <pre className="max-h-[140px] overflow-y-auto p-3.5 rounded-xl bg-emerald-50/60 border border-emerald-100/90 text-emerald-950 font-body text-xs whitespace-pre-wrap leading-relaxed scrollbar-thin">
                         {whatsappTemplate}
                       </pre>
                     </div>
                   )}
 
                   {/* Mark Project Complete Action */}
-                  <div className="flex items-center justify-between pt-3 border-t border-slate-100">
-                    <p className="text-[11px] text-slate-400">
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pt-3 border-t border-slate-100">
+                    <p className="text-[11px] font-normal font-body text-slate-400">
                       Jika klien sudah selesai mengunduh foto, Anda bisa menandai project Selesai (Completed).
                     </p>
                     <button
                       onClick={handleMarkComplete}
                       disabled={completing || project?.status === 'completed'}
-                      className="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold transition disabled:opacity-50"
+                      className="h-9 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold font-body transition disabled:opacity-50 shrink-0 cursor-pointer"
                     >
                       {completing ? <Loader2 size={13} className="animate-spin" /> : project?.status === 'completed' ? 'Project Telah Selesai' : 'Tandai Selesai (Completed)'}
                     </button>

@@ -40,10 +40,10 @@ export function ReviewSelectionModal({
       <div className="max-h-[92vh] w-full max-w-[620px] overflow-y-auto no-scrollbar rounded-3xl border border-slate-200 bg-white p-5 sm:p-7 shadow-2xl animate-in fade-in zoom-in-95 duration-150">
         <div className="flex items-start justify-between gap-3">
           <div>
-            <h2 className="text-lg sm:text-xl font-bold tracking-tight text-slate-900">
+            <h2 className="text-lg sm:text-xl font-semibold font-heading tracking-tight text-slate-900">
               Foto Pilihan Anda
             </h2>
-            <p className="mt-1 text-xs text-slate-500">
+            <p className="mt-1 text-xs font-normal font-body text-slate-500">
               {selectedIds.size} dari maksimal {project.maxPhotos} foto dipilih. Anda dapat membatalkan foto sebelum konfirmasi final.
             </p>
           </div>
@@ -73,12 +73,12 @@ export function ReviewSelectionModal({
                   />
                 ) : (
                   <div className="flex h-full w-full items-center justify-center bg-avatar">
-                    <span className="font-mono text-xs font-bold text-white">
+                    <span className="font-body text-xs font-medium text-white">
                       {p.photoCode}
                     </span>
                   </div>
                 )}
-                <span className="absolute bottom-1.5 left-1.5 rounded-md bg-slate-900/80 px-1.5 py-0.5 font-mono text-[10px] font-bold text-white backdrop-blur-xs">
+                <span className="absolute bottom-1.5 left-1.5 rounded-md bg-slate-900/80 px-1.5 py-0.5 font-body text-[10px] font-medium text-white backdrop-blur-xs">
                   {p.photoCode}
                 </span>
                 {!project.isLocked && (
@@ -103,18 +103,18 @@ export function ReviewSelectionModal({
         {codes.length > 0 && (
           <div className="mt-5 rounded-2xl border border-blue-200 bg-brand-soft p-4">
             <div className="flex items-center justify-between">
-              <span className="text-[11px] font-bold uppercase tracking-wider text-blue-700">
+              <span className="text-[11px] font-medium font-body uppercase tracking-wider text-blue-700">
                 Daftar Kode Foto ({codes.length})
               </span>
               <button
                 onClick={copyCodes}
-                className="flex items-center gap-1 text-xs font-bold text-blue-600 hover:text-blue-800 transition"
+                className="flex items-center gap-1 text-xs font-semibold font-body text-blue-600 hover:text-blue-800 transition"
               >
                 <Copy size={13} />
                 <span>Salin Kode</span>
               </button>
             </div>
-            <p className="mt-2 font-mono text-xs font-medium leading-relaxed text-slate-800">
+            <p className="mt-2 font-body text-xs font-medium leading-relaxed text-slate-800">
               {codes.join(' · ')}
             </p>
           </div>
@@ -123,7 +123,7 @@ export function ReviewSelectionModal({
         <div className="mt-6 flex flex-col-reverse gap-2.5 sm:flex-row sm:justify-between sm:items-center">
           <button
             onClick={onClose}
-            className="h-10 rounded-xl border border-slate-200 bg-white px-4 text-xs font-semibold text-slate-600 hover:bg-slate-50 transition"
+            className="h-10 rounded-xl border border-slate-200 bg-white px-4 text-xs font-semibold font-body text-slate-600 hover:bg-slate-50 transition"
           >
             Lanjut Memilih
           </button>
@@ -134,7 +134,7 @@ export function ReviewSelectionModal({
                 onOpenConfirm()
               }}
               disabled={selectedIds.size === 0}
-              className="flex h-10 items-center justify-center gap-2 rounded-xl bg-brand-gradient bg-[length:200%_100%] bg-left px-5 text-xs font-bold text-white shadow-glow hover:bg-right hover:-translate-y-0.5 hover:shadow-glow-lg active:scale-[0.98] disabled:opacity-50 transition-all motion-reduce:transition-none motion-reduce:hover:transform-none"
+              className="flex h-10 items-center justify-center gap-2 rounded-xl bg-brand-gradient bg-[length:200%_100%] bg-left px-5 text-xs font-semibold font-body text-white shadow-glow hover:bg-right hover:-translate-y-0.5 hover:shadow-glow-lg active:scale-[0.98] disabled:opacity-50 transition-all motion-reduce:transition-none motion-reduce:hover:transform-none"
             >
               <span>Selesaikan Pilihan</span>
               <ArrowRight size={15} />

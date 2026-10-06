@@ -272,10 +272,10 @@ export function ProjectModal({ editing, onClose, onCreated, onUpdated, onDelete,
         <div className="flex items-start justify-between gap-4">
           <div>
             <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-brand-600">{t('workspace')}</p>
-            <h2 className="mt-1 text-[20px] sm:text-[24px] font-bold tracking-[-0.03em] text-[#0f172a]">
+            <h2 className="mt-1 text-[20px] sm:text-[24px] font-semibold font-heading tracking-[-0.03em] text-[#0f172a]">
               {isEdit ? t('modalEditProjectTitle') : t('modalNewProjectTitle')}
             </h2>
-            <p className="mt-1 text-[12px] sm:text-[13px] leading-5 text-slate-500">
+            <p className="mt-1 text-[12px] sm:text-[13px] font-normal font-body leading-5 text-slate-500">
               {isEdit ? t('modalEditProjectDesc') : t('modalNewProjectDesc')}
             </p>
           </div>
@@ -340,14 +340,14 @@ export function ProjectModal({ editing, onClose, onCreated, onUpdated, onDelete,
             <button
               type="button"
               onClick={onClose}
-              className="bg-brand-50 text-brand-700 border border-brand-200 rounded-xl px-4 py-2.5 text-xs font-medium transition-all duration-200 hover:bg-brand-soft hover:border-brand-400 hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-400/40 motion-reduce:transition-none motion-reduce:hover:transform-none"
+              className="h-10 flex items-center justify-center bg-brand-50 text-brand-700 border border-brand-200 rounded-xl px-4 text-xs font-semibold font-body transition-all duration-200 hover:bg-brand-soft hover:border-brand-400 hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-400/40 motion-reduce:transition-none motion-reduce:hover:transform-none"
             >
               {t('cancel')}
             </button>
             <button
               disabled={isPending}
               type="submit"
-              className="bg-brand-gradient bg-[length:200%_100%] bg-left text-white rounded-xl px-5 py-2.5 text-xs sm:text-sm font-medium shadow-glow transition-all duration-500 hover:bg-right hover:-translate-y-0.5 hover:shadow-glow-lg active:translate-y-0 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-400/40 motion-reduce:transition-none motion-reduce:hover:transform-none disabled:cursor-not-allowed disabled:opacity-60"
+              className="h-10 flex items-center justify-center bg-brand-gradient bg-[length:200%_100%] bg-left text-white rounded-xl px-5 text-xs sm:text-sm font-semibold font-body shadow-glow transition-all duration-500 hover:bg-right hover:-translate-y-0.5 hover:shadow-glow-lg active:translate-y-0 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-400/40 motion-reduce:transition-none motion-reduce:hover:transform-none disabled:cursor-not-allowed disabled:opacity-60"
             >
               {isPending ? (isEdit ? t('saving') : t('creating')) : isEdit ? t('btnSaveProject') : t('btnCreateProject')}
             </button>

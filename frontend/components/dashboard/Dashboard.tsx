@@ -344,7 +344,7 @@ export function PhotoSelectorDashboard({ initialProjects, userEmail, initialProf
       <aside className="fixed inset-y-0 left-0 hidden w-[238px] flex-col border-r border-brand-200/70 bg-white/80 px-4 py-7 shadow-[4px_0_24px_rgba(37,99,235,0.06)] backdrop-blur-xl lg:flex z-30">
         <div className="flex items-center gap-2.5 px-2">
           <img src="/logo.png" alt="Perumda Photo" className="size-8 object-contain rounded-xl bg-white p-0.5 shadow-xs border border-brand-200/60" />
-          <span className="text-[15px] font-semibold tracking-[-0.02em] text-[#0f172a]">Perumda Photo</span>
+          <span className="text-[15px] font-semibold font-heading tracking-[-0.02em] text-[#0f172a]">Perumda Photo</span>
         </div>
         <nav className="mt-8 flex flex-col gap-1.5" aria-label="Main navigation">
           {navItems.map((item) => {
@@ -423,7 +423,7 @@ export function PhotoSelectorDashboard({ initialProjects, userEmail, initialProf
             </button>
             <div className="flex items-center gap-2">
               <img src="/logo.png" alt="Perumda Photo" className="size-7 object-contain rounded-lg bg-white p-0.5 shadow-xs border border-brand-200/60" />
-              <span className="text-[13.5px] font-semibold text-slate-900">Perumda Photo</span>
+              <span className="text-[13.5px] font-semibold font-heading text-slate-900">Perumda Photo</span>
             </div>
           </div>
           <div className="hidden items-center gap-2 text-[12px] text-slate-500 lg:flex">
@@ -556,7 +556,7 @@ export function PhotoSelectorDashboard({ initialProjects, userEmail, initialProf
               <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end animate-fade-in-down">
                 <div>
                   <p className="mb-1 text-[11px] sm:text-[12px] font-semibold uppercase tracking-[0.16em] text-brand-600">{today}</p>
-                  <h1 className="text-[24px] font-semibold tracking-[-0.045em] text-[#0f172a] sm:text-[34px]">
+                  <h1 className="text-[24px] font-bold font-heading tracking-[-0.045em] text-[#0f172a] sm:text-[34px] leading-tight">
                     {greeting}, {firstName}
                   </h1>
                   <p className="mt-1 text-[13px] sm:text-[14px] text-slate-500">{t('dashboardSubtitle')}</p>
@@ -580,8 +580,8 @@ export function PhotoSelectorDashboard({ initialProjects, userEmail, initialProf
               {/* Projects header */}
               <div className="mt-8 sm:mt-11 flex flex-col justify-between gap-3 sm:flex-row sm:items-center animate-fade-in-down stagger-2">
                 <div>
-                  <h2 className="text-[17px] sm:text-[18px] font-semibold tracking-[-0.025em] text-[#0f172a]">{t('yourProjects')}</h2>
-                  <p className="mt-0.5 text-[12px] sm:text-[13px] text-slate-500">{t('manageGalleriesDesc')}</p>
+                  <h2 className="text-[17px] sm:text-[18px] font-semibold font-heading tracking-[-0.025em] text-[#0f172a] leading-normal">{t('yourProjects')}</h2>
+                  <p className="mt-0.5 text-[12px] sm:text-[13px] font-normal font-body text-slate-500">{t('manageGalleriesDesc')}</p>
                 </div>
                 <div className="relative w-full sm:w-[220px]">
                   <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-brand-400" size={14} />

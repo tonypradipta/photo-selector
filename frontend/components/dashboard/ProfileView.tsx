@@ -50,9 +50,10 @@ function ChangePasswordModal({ onClose, toast }: {
         </div>
         {error && <p role="alert" className="mt-3 text-[12px] font-medium text-[#dc2626]">{error}</p>}
         <div className="mt-5 flex justify-end gap-2.5">
-          <button type="button" onClick={onClose} className="rounded-[8px] border border-[#bfdbfe] bg-white px-4 py-2 text-[12px] font-medium text-[#64748b] hover:bg-[#eff6ff]">{t('cancel')}</button>
-          <button type="submit" disabled={isPending} className="rounded-[8px] bg-gradient-to-r from-[#2563eb] to-[#0284c7] px-4 py-2 text-[12px] font-medium text-white shadow-md disabled:opacity-60">
-            {isPending ? t('updating') : t('changePasswordTitle')}
+          <button type="button" onClick={onClose} className="h-10 flex items-center justify-center rounded-xl border border-brand-200 bg-brand-50 px-4 text-xs font-semibold font-body text-brand-700 hover:bg-brand-soft hover:border-brand-400 transition">{t('cancel')}</button>
+          <button type="submit" disabled={isPending} className="h-10 flex items-center justify-center gap-2 rounded-xl bg-brand-gradient bg-[length:200%_100%] bg-left px-5 text-xs font-semibold font-body text-white shadow-glow hover:bg-right hover:-translate-y-0.5 hover:shadow-glow-lg active:scale-[0.98] disabled:opacity-60 transition-all">
+            {isPending && <Loader2 size={13} className="animate-spin" />}
+            <span>{isPending ? t('updating') : t('changePasswordTitle')}</span>
           </button>
         </div>
       </form>
@@ -95,14 +96,14 @@ export function ProfileView({ profile, userEmail, toast }: {
     <section>
       <PageHeading eyebrow={t('account')} title={t('profileTitle')} description={t('profileDesc')} />
       <div className="mt-8 grid max-w-[860px] gap-5">
-        <div className="rounded-[14px] border border-[#bfdbfe]/80 bg-white/85 p-6 shadow-sm backdrop-blur-md sm:p-8">
+        <div className="rounded-[20px] border border-slate-200/90 bg-white p-5 sm:p-6 shadow-2xs hover:border-blue-200 smooth-card">
           <div className="flex flex-col gap-5 sm:flex-row sm:items-center">
-            <div className="flex size-20 items-center justify-center rounded-[20px] bg-gradient-to-br from-[#bfdbfe] to-[#93c5fd] text-[24px] font-semibold tracking-[-0.04em] text-[#1e40af] shadow-inner">
+            <div className="flex size-16 sm:size-20 items-center justify-center rounded-2xl bg-avatar text-xl sm:text-2xl font-bold font-heading text-brand-800 shadow-inner shrink-0">
               {initials}
             </div>
             <div>
-              <p className="text-[18px] font-semibold tracking-[-0.03em] text-[#0f172a]">{draft.studioName || 'Studio'}</p>
-              <p className="mt-1 text-[13px] text-[#64748b]">{t('photographer')}{draft.location ? ` · ${draft.location}` : ''}</p>
+              <p className="text-base sm:text-lg font-semibold font-heading text-slate-900">{draft.studioName || 'Studio'}</p>
+              <p className="mt-0.5 text-xs font-normal font-body text-slate-500">{t('photographer')}{draft.location ? ` · ${draft.location}` : ''}</p>
             </div>
           </div>
         </div>
@@ -140,12 +141,12 @@ export function ProfileView({ profile, userEmail, toast }: {
           </div>
         </SettingsCard>
 
-        <div className="flex flex-wrap items-center justify-between gap-4 pt-2">
-          <button type="button" onClick={save} disabled={isPending} className="flex items-center gap-2 rounded-[8px] bg-gradient-to-r from-[#2563eb] to-[#0284c7] px-5 py-2.5 text-[12px] font-medium text-white shadow-md shadow-blue-500/25 hover:from-[#1d4ed8] hover:to-[#0369a1] disabled:opacity-60 transition">
+        <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
+          <button type="button" onClick={save} disabled={isPending} className="h-10 flex items-center gap-2 rounded-xl bg-brand-gradient bg-[length:200%_100%] bg-left px-5 text-xs font-semibold font-body text-white shadow-glow hover:bg-right hover:-translate-y-0.5 hover:shadow-glow-lg active:scale-[0.98] disabled:opacity-60 transition-all">
             {isPending && <Loader2 size={13} className="animate-spin" />}
-            {isPending ? t('saving') : t('save')}
+            <span>{isPending ? t('saving') : t('save')}</span>
           </button>
-          <button type="button" onClick={() => setShowChangePassword(true)} className="flex items-center gap-2 rounded-[8px] border border-[#bfdbfe] bg-white px-4 py-2.5 text-[12px] font-medium text-[#1e40af] hover:bg-[#eff6ff] hover:border-[#93c5fd] transition shadow-xs">
+          <button type="button" onClick={() => setShowChangePassword(true)} className="h-10 flex items-center gap-2 rounded-xl border border-brand-200 bg-brand-50 px-4 text-xs font-semibold font-body text-brand-700 hover:bg-brand-soft hover:border-brand-400 hover:-translate-y-0.5 active:scale-[0.98] transition-all shadow-2xs">
             <KeyRound size={14} /> {t('changePasswordTitle')}
           </button>
         </div>

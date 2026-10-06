@@ -3,7 +3,7 @@
 import { useState, useEffect, useMemo } from 'react'
 import {
   Send, Search, Filter, FolderOpen, ArrowRight, Download,
-  CheckCircle2, Clock, Check, RefreshCw, ExternalLink, Link2, Copy, Sparkles
+  CheckCircle2, Clock, Check, RefreshCw, ExternalLink, Link2, Copy, Sparkles, Image as ImageIcon
 } from 'lucide-react'
 import { deliveries, type ProjectData } from '@/lib/api-client'
 import { DeliveryWorkspaceModal } from './DeliveryWorkspaceModal'
@@ -145,15 +145,15 @@ export function DeliveryView({
             <button
               key={tab.id}
               onClick={() => setSelectedStatus(tab.id)}
-              className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all duration-200 ${
+              className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-medium font-body whitespace-nowrap transition-all duration-200 ${
                 selectedStatus === tab.id
-                  ? 'bg-brand-soft text-brand-700 font-medium shadow-[inset_3px_0_0_#2563EB]'
+                  ? 'bg-brand-soft text-brand-700 font-semibold shadow-[inset_3px_0_0_#2563EB]'
                   : 'text-slate-600 hover:bg-brand-50 hover:text-brand-700'
               }`}
             >
               <span>{tab.label}</span>
               <span
-                className={`px-2 py-0.5 rounded-full text-[10.5px] font-bold ${
+                className={`px-2 py-0.5 rounded-full text-[10.5px] font-medium font-body ${
                   selectedStatus === tab.id
                     ? 'bg-brand-600 text-white'
                     : 'bg-brand-100 text-brand-700'
@@ -210,18 +210,18 @@ export function DeliveryView({
                   <div className="flex items-start justify-between gap-2">
                     <div className="min-w-0 flex-1">
                       <span
-                        className="block truncate text-[11px] font-semibold text-brand-600 uppercase tracking-wider"
+                        className="block truncate text-[11px] font-medium font-body text-brand-600 uppercase tracking-wider"
                         title={project.client_name}
                       >
                         {project.client_name}
                       </span>
-                      <h3 className="text-base font-bold text-slate-900 truncate" title={project.name}>
+                      <h3 className="text-base font-semibold font-heading text-slate-900 truncate" title={project.name}>
                         {project.name}
                       </h3>
                     </div>
 
                     <span
-                      className={`shrink-0 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold ${getStatusStyle(statusKey)}`}
+                      className={`shrink-0 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium font-body ${getStatusStyle(statusKey)}`}
                     >
                       {isCompleted ? t('statusCompleted') : t('statusEditing')}
                     </span>
@@ -243,9 +243,9 @@ export function DeliveryView({
                       </span>
                     </div>
 
-                    {/* Preview Foto Hasil Edit (Hanya tampil apabila sudah ada foto hasil edit yang disinkronkan) */}
-                    {project.edited_count && project.edited_count > 0 && (project.edited_preview_thumbnails || []).length > 0 ? (
-                      <div className="p-1.5 bg-slate-100/70 rounded-2xl border border-slate-200/60 my-1">
+                    {/* Preview Foto Hasil Edit (Uniform proportional height) */}
+                    <div className="p-1.5 bg-slate-100/70 rounded-2xl border border-slate-200/60 my-1">
+                      {project.edited_count && project.edited_count > 0 && (project.edited_preview_thumbnails || []).length > 0 ? (
                         <div className="grid grid-cols-4 gap-1.5 h-20">
                           {[0, 1, 2, 3].map((idx) => {
                             const thumbs = project.edited_preview_thumbnails || []
@@ -257,18 +257,30 @@ export function DeliveryView({
                             )
                           })}
                         </div>
-                      </div>
-                    ) : null}
+                      ) : (
+                        <div className="h-20 flex flex-col items-center justify-center gap-1 text-slate-400">
+                          <ImageIcon size={18} className="text-slate-300" />
+                          <span className="text-[10.5px] font-normal font-body text-slate-400">Belum ada foto edit</span>
+                        </div>
+                      )}
+                    </div>
 
-                    {hasActiveDelivery ? (
-                      <div className="flex items-center justify-between py-1">
-                        <span className="text-slate-500 font-medium">{t('copyDeliveryLink')}:</span>
-                        <span className="font-bold text-emerald-600 flex items-center gap-1">
-                          <CheckCircle2 size={12} />
-                          <span>Link Aktif</span>
-                        </span>
-                      </div>
-                    ) : null}
+                    <div className="flex items-center justify-between py-1 min-h-[26px]">
+                      {hasActiveDelivery ? (
+                        <>
+                          <span className="text-slate-500 font-medium">{t('copyDeliveryLink')}:</span>
+                          <span className="font-semibold text-emerald-600 flex items-center gap-1 text-[11px]">
+                            <CheckCircle2 size={12} />
+                            <span>Link Aktif</span>
+                          </span>
+                        </>
+                      ) : (
+                        <>
+                          <span className="text-slate-400 font-normal">{t('deliveryGalleryTitle')}:</span>
+                          <span className="text-slate-400 text-[11px]">Belum dibuat</span>
+                        </>
+                      )}
+                    </div>
                   </div>
 
                   {/* Actions Bar */}

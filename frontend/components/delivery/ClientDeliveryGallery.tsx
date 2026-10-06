@@ -109,14 +109,14 @@ export function ClientDeliveryGallery({ token }: ClientDeliveryGalleryProps) {
           </div>
 
           <div className="text-center mb-6">
-            <span className="text-[11px] font-bold text-blue-300 uppercase tracking-widest">
+            <span className="text-[11px] font-medium font-body text-blue-300 uppercase tracking-widest">
               {data.project.studio_name || 'Studio'}
             </span>
-            <h1 className="text-xl font-bold mt-1 text-white tracking-tight">
+            <h1 className="text-xl font-bold font-heading mt-1 text-white tracking-tight">
               {data.project.name}
             </h1>
-            <p className="text-xs text-slate-300 mt-1">
-              {language === 'id' ? 'Untuk' : 'For'} <b className="text-white">{data.project.client_name}</b>
+            <p className="text-xs font-normal font-body text-slate-300 mt-1">
+              {language === 'id' ? 'Untuk' : 'For'} <b className="font-semibold text-white">{data.project.client_name}</b>
             </p>
           </div>
 
@@ -142,7 +142,7 @@ export function ClientDeliveryGallery({ token }: ClientDeliveryGalleryProps) {
             <button
               type="submit"
               disabled={verifyingPin || !pinInput.trim()}
-              className="w-full py-3.5 px-4 bg-brand-gradient bg-[length:200%_100%] bg-left hover:bg-right text-white font-bold text-xs sm:text-sm rounded-xl shadow-glow hover:shadow-glow-lg transition-all disabled:opacity-50 flex items-center justify-center gap-2"
+              className="w-full py-3.5 px-4 bg-brand-gradient bg-[length:200%_100%] bg-left hover:bg-right text-white font-semibold font-body text-xs sm:text-sm rounded-xl shadow-glow hover:shadow-glow-lg transition-all disabled:opacity-50 flex items-center justify-center gap-2"
             >
               {verifyingPin ? <Loader2 size={16} className="animate-spin" /> : <ShieldCheck size={18} />}
               <span>{language === 'id' ? 'Buka Galeri Foto' : 'Unlock Photo Gallery'}</span>
@@ -207,14 +207,14 @@ export function ClientDeliveryGallery({ token }: ClientDeliveryGalleryProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-8 pt-8">
         <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-blue-700 via-indigo-600 to-blue-600 p-6 sm:p-8 text-white shadow-xl">
           <div className="relative z-10 max-w-2xl">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/20 text-xs font-semibold backdrop-blur-xs mb-3">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/20 text-xs font-medium font-body backdrop-blur-xs mb-3">
               <Check size={13} strokeWidth={2.5} />
               <span>{t('deliveryGalleryTitle')}</span>
             </span>
-            <h2 className="text-xl sm:text-3xl font-extrabold tracking-tight">
+            <h2 className="text-xl sm:text-3xl font-bold font-heading tracking-tight">
               {language === 'id' ? `Halo, Kak ${data?.project.client_name}! 📸✨` : `Hello, ${data?.project.client_name}! 📸✨`}
             </h2>
-            <p className="mt-2 text-xs sm:text-sm text-blue-100 leading-relaxed">
+            <p className="mt-2 text-xs sm:text-sm font-normal font-body text-blue-100 leading-relaxed">
               {t('deliveryGalleryDesc')}
             </p>
 
@@ -241,7 +241,7 @@ export function ClientDeliveryGallery({ token }: ClientDeliveryGalleryProps) {
       {/* Photos Grid Section */}
       <div className="max-w-7xl mx-auto px-4 sm:px-8 pt-8">
         <div className="flex items-center justify-between mb-4">
-          <h3 className="text-base font-bold text-slate-900">
+          <h3 className="text-base font-semibold font-heading text-slate-900">
             {language === 'id' ? `Daftar Foto Resolusi Penuh (${photos.length})` : `Full Resolution Photos (${photos.length})`}
           </h3>
         </div>
@@ -285,7 +285,7 @@ export function ClientDeliveryGallery({ token }: ClientDeliveryGalleryProps) {
                 {/* Photo Footer */}
                 <div className="p-3 flex items-center justify-between gap-2 border-t border-slate-100">
                   <div className="min-w-0 flex-1">
-                    <p className="text-xs font-semibold text-slate-800 truncate" title={photo.file_name}>
+                    <p className="text-xs font-medium font-body text-slate-800 truncate" title={photo.file_name}>
                       {photo.file_name}
                     </p>
                   </div>

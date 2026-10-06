@@ -35,17 +35,17 @@ export function DeleteModal({ project, onClose, onDeleted, toast }: {
         <div className="mb-4 flex size-12 items-center justify-center rounded-2xl bg-rose-50 text-rose-600">
           <Trash2 size={22} />
         </div>
-        <h3 className="text-[18px] font-bold tracking-[-0.02em] text-[#0f172a]">{t('deleteModalTitle', { name: project.name })}</h3>
-        <p className="mt-2 text-[13px] leading-relaxed text-slate-500">
+        <h3 className="text-[18px] font-semibold font-heading leading-snug tracking-[-0.02em] text-[#0f172a]">{t('deleteModalTitle', { name: project.name })}</h3>
+        <p className="mt-2 text-[13px] font-normal font-body leading-relaxed text-slate-500">
           {t('deleteModalDesc')}
         </p>
-        {error && <p className="mt-3 text-[12px] font-medium text-rose-600">{error}</p>}
+        {error && <p className="mt-3 text-[12px] font-medium font-body text-rose-600">{error}</p>}
         <div className="mt-6 flex justify-end gap-2.5">
           <button
             type="button"
             onClick={onClose}
             disabled={isPending}
-            className="bg-brand-50 text-brand-700 border border-brand-200 rounded-xl px-4 py-2 text-xs font-medium transition-all duration-200 hover:bg-brand-soft hover:border-brand-400 hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-400/40 motion-reduce:transition-none motion-reduce:hover:transform-none"
+            className="h-10 bg-brand-50 text-brand-700 border border-brand-200 rounded-xl px-4 text-xs font-semibold font-body transition-all duration-200 hover:bg-brand-soft hover:border-brand-400 hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-400/40 motion-reduce:transition-none motion-reduce:hover:transform-none"
           >
             {t('cancel')}
           </button>
@@ -53,7 +53,7 @@ export function DeleteModal({ project, onClose, onDeleted, toast }: {
             type="button"
             onClick={handleDelete}
             disabled={isPending}
-            className="flex items-center gap-1.5 rounded-xl bg-rose-600 px-4 py-2 text-xs font-semibold text-white hover:bg-rose-700 disabled:opacity-60 transition shadow-sm"
+            className="h-10 flex items-center gap-1.5 rounded-xl bg-rose-600 px-4 text-xs font-semibold font-body text-white hover:bg-rose-700 disabled:opacity-60 transition shadow-sm"
           >
             {isPending ? <Loader2 size={14} className="animate-spin" /> : <Trash2 size={14} />}
             <span>{isPending ? t('deleting') : t('btnConfirmDelete')}</span>

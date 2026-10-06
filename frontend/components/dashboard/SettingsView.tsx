@@ -129,9 +129,9 @@ export function SettingsView({ profile, toast }: {
           type="button"
           onClick={save}
           disabled={isPending}
-          className="flex w-fit items-center gap-2 rounded-xl bg-brand-gradient bg-[length:200%_100%] bg-left px-6 py-3 text-xs sm:text-sm font-bold text-white shadow-glow hover:bg-right hover:-translate-y-0.5 hover:shadow-glow-lg active:scale-[0.98] transition-all disabled:opacity-60 motion-reduce:transition-none motion-reduce:hover:transform-none"
+          className="h-10 flex w-fit items-center gap-2 rounded-xl bg-brand-gradient bg-[length:200%_100%] bg-left px-5 text-xs font-semibold font-body text-white shadow-glow hover:bg-right hover:-translate-y-0.5 hover:shadow-glow-lg active:scale-[0.98] transition-all disabled:opacity-60 motion-reduce:transition-none motion-reduce:hover:transform-none"
         >
-          {isPending && <Loader2 size={15} className="animate-spin" />}
+          {isPending && <Loader2 size={14} className="animate-spin" />}
           <span>{isPending ? t('saving') : t('saveSettings')}</span>
         </button>
       </div>

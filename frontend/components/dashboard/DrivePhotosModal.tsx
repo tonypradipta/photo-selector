@@ -94,16 +94,16 @@ export function DrivePhotosModal({
             </div>
             <div>
               <div className="flex flex-wrap items-center gap-2">
-                <h2 className="text-[18px] font-bold tracking-[-0.025em] text-[#0f172a]">
+                <h2 className="text-[18px] font-semibold font-heading leading-normal tracking-[-0.025em] text-[#0f172a]">
                   {project.name}
                 </h2>
-                <span className="rounded-full bg-brand-50 border border-brand-200 px-2.5 py-0.5 text-[10.5px] font-semibold text-brand-700">
+                <span className="rounded-full bg-brand-50 border border-brand-200 px-2.5 py-0.5 text-[10.5px] font-medium font-body text-brand-700">
                   {project.status.toUpperCase()}
                 </span>
               </div>
-              <p className="text-[12px] text-slate-500">
+              <p className="text-[12px] font-normal font-body text-slate-500">
                 {t('fieldClientName')}: <span className="font-medium text-slate-800">{project.clientName}</span> ·{' '}
-                <span className="text-brand-600 font-semibold">{photos.length} {t('photosCount')}</span> dari Google Drive
+                <span className="text-brand-600 font-medium">{photos.length} {t('photosCount')}</span> dari Google Drive
               </p>
             </div>
           </div>
@@ -236,7 +236,7 @@ export function DrivePhotosModal({
                       />
                     ) : (
                       <div className="flex h-full w-full items-center justify-center bg-avatar">
-                        <span className="font-mono text-[11px] font-semibold text-brand-800">
+                        <span className="font-body text-[11px] font-medium text-brand-800">
                           {photo.photoCode}
                         </span>
                       </div>
@@ -251,14 +251,14 @@ export function DrivePhotosModal({
 
                     {/* Selected Badge */}
                     {photo.isSelected && (
-                      <div className="absolute top-2 left-2 flex items-center gap-1 rounded-full bg-emerald-600 px-2 py-0.5 text-[10px] font-semibold text-white shadow-sm">
+                      <div className="absolute top-2 left-2 flex items-center gap-1 rounded-full bg-emerald-600 px-2 py-0.5 text-[10px] font-medium font-body text-white shadow-sm">
                         <Check size={11} /> {t('photosSelected')}
                       </div>
                     )}
 
                     {/* Photo Code Badge */}
                     <div className="absolute bottom-2 left-2 right-2 flex items-center justify-between rounded-lg bg-slate-950/75 px-2 py-1 backdrop-blur-xs">
-                      <span className="truncate font-mono text-[10px] font-medium text-white">
+                      <span className="truncate font-body text-[10px] font-medium text-white">
                         {photo.photoCode}
                       </span>
                     </div>
