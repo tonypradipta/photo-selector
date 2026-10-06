@@ -11,8 +11,8 @@ function GalleryNotFound() {
     <main className="min-h-screen bg-gradient-to-br from-[#f0f7ff] via-[#e2eeff] to-[#edf5ff] flex items-center justify-center px-4 py-12">
       <div className="w-full max-w-[460px] text-center">
         <div className="mb-6 flex items-center justify-center gap-3">
-          <img src="/logo.png" alt="Perumda Photo Selector" className="size-10 rounded-[10px] border border-[#bfdbfe]/50 bg-white object-contain p-1 shadow-sm" />
-          <span className="text-[17px] font-semibold text-[#0f172a]">Perumda Photo Selector</span>
+          <img src="/logo.png" alt="Perumda Photo" className="size-10 rounded-[10px] border border-[#bfdbfe]/50 bg-white object-contain p-1 shadow-sm" />
+          <span className="text-[17px] font-semibold text-[#0f172a]">Perumda Photo</span>
         </div>
         <div className="rounded-[16px] border border-[#bfdbfe] bg-white/95 p-8 shadow-[0_20px_60px_rgba(37,99,235,0.12)] backdrop-blur-2xl">
           <div className="mx-auto mb-4 flex size-14 items-center justify-center rounded-full bg-[#fef2f2] text-[#dc2626]">
@@ -23,7 +23,7 @@ function GalleryNotFound() {
             Tautan galeri yang Anda buka tidak valid atau telah dihapus oleh fotografer. Silakan hubungi fotografer Anda untuk mendapatkan tautan yang benar.
           </p>
         </div>
-        <p className="mt-6 text-[12px] text-[#94a3b8]">Perumda Photo Selector · Platform Pemilihan Foto Klien</p>
+        <p className="mt-6 text-[12px] text-[#94a3b8]">Perumda Photo · Platform Pemilihan Foto Klien</p>
       </div>
     </main>
   )

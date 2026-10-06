@@ -4,7 +4,7 @@ import { Metadata } from 'next'
 export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
-  title: 'Download Foto Hasil Edit - Perumda Photo Selector',
+  title: 'Download Foto Hasil Edit - Perumda Photo',
   robots: {
     index: false,
     follow: false,

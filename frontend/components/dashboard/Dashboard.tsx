@@ -343,8 +343,8 @@ export function PhotoSelectorDashboard({ initialProjects, userEmail, initialProf
       {/* ── Sidebar ── */}
       <aside className="fixed inset-y-0 left-0 hidden w-[238px] flex-col border-r border-brand-200/70 bg-white/80 px-4 py-7 shadow-[4px_0_24px_rgba(37,99,235,0.06)] backdrop-blur-xl lg:flex z-30">
         <div className="flex items-center gap-2.5 px-2">
-          <img src="/logo.png" alt="Perumda Photo Selector" className="size-8 object-contain rounded-xl bg-white p-0.5 shadow-xs border border-brand-200/60" />
-          <span className="text-[15px] font-semibold tracking-[-0.02em] text-[#0f172a]">Perumda Photo Selector</span>
+          <img src="/logo.png" alt="Perumda Photo" className="size-8 object-contain rounded-xl bg-white p-0.5 shadow-xs border border-brand-200/60" />
+          <span className="text-[15px] font-semibold tracking-[-0.02em] text-[#0f172a]">Perumda Photo</span>
         </div>
         <nav className="mt-8 flex flex-col gap-1.5" aria-label="Main navigation">
           {navItems.map((item) => {
@@ -422,8 +422,8 @@ export function PhotoSelectorDashboard({ initialProjects, userEmail, initialProf
               {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
             <div className="flex items-center gap-2">
-              <img src="/logo.png" alt="Perumda Photo Selector" className="size-7 object-contain rounded-lg bg-white p-0.5 shadow-xs border border-brand-200/60" />
-              <span className="text-[13.5px] font-semibold text-slate-900">Perumda Photo Selector</span>
+              <img src="/logo.png" alt="Perumda Photo" className="size-7 object-contain rounded-lg bg-white p-0.5 shadow-xs border border-brand-200/60" />
+              <span className="text-[13.5px] font-semibold text-slate-900">Perumda Photo</span>
             </div>
           </div>
           <div className="hidden items-center gap-2 text-[12px] text-slate-500 lg:flex">

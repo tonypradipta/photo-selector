@@ -51,11 +51,11 @@ export default function LoginPage() {
           <div className="flex items-center gap-3">
             <img
               src="/logo.png"
-              alt="Perumda Photo Selector"
+              alt="Perumda Photo"
               className="size-10 rounded-xl border border-blue-200 bg-white object-contain p-1 shadow-2xs"
             />
             <span className="text-lg font-bold tracking-tight text-slate-900">
-              Perumda Photo Selector
+              Perumda Photo
             </span>
           </div>
           <p className="text-xs sm:text-sm font-medium text-slate-500">Sign in to your photographer workspace</p>
@@ -161,7 +161,7 @@ export default function LoginPage() {
         </form>
 
         <p className="mt-6 text-center text-xs text-slate-400">
-          Perumda Photo Selector · For photographers only
+          Perumda Photo · For photographers only
         </p>
       </div>
     </main>

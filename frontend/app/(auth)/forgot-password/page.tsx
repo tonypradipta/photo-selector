@@ -29,8 +29,8 @@ export default function ForgotPasswordPage() {
       <div className="w-full max-w-[420px]">
         <div className="mb-8 flex flex-col items-center gap-3 text-center">
           <div className="flex items-center gap-3">
-            <img src="/logo.png" alt="Perumda Photo Selector" className="size-10 rounded-xl border border-blue-200 bg-white object-contain p-1 shadow-2xs" />
-            <span className="text-lg font-bold tracking-tight text-slate-900">Perumda Photo Selector</span>
+            <img src="/logo.png" alt="Perumda Photo" className="size-10 rounded-xl border border-blue-200 bg-white object-contain p-1 shadow-2xs" />
+            <span className="text-lg font-bold tracking-tight text-slate-900">Perumda Photo</span>
           </div>
         </div>
 

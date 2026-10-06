@@ -38,11 +38,11 @@ export function CompletedView({
         <div className="flex items-center gap-3 min-w-0">
           <img
             src="/logo.png"
-            alt="Perumda Photo Selector"
+            alt="Perumda Photo"
             className="size-8 rounded-xl border border-blue-200 bg-white object-contain p-0.5 shadow-2xs shrink-0"
           />
           <span className="hidden text-sm font-bold text-slate-900 sm:inline truncate">
-            {project.studioName || 'Perumda Photo Selector'}
+            {project.studioName || 'Perumda Photo'}
           </span>
           <span className="hidden text-slate-300 sm:inline">/</span>
           <span className="text-xs sm:text-sm font-bold text-blue-600 truncate">

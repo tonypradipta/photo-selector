@@ -648,7 +648,7 @@ export function DeliveryWorkspaceModal({
 
         {/* Modal Footer */}
         <div className="flex items-center justify-between px-6 py-3 border-t border-slate-200 bg-white text-xs text-slate-500">
-          <span>Delivery Workspace • Perumda Photo Selector</span>
+          <span>Delivery Workspace • Perumda Photo</span>
           <button
             onClick={onClose}
             className="px-4 py-1.5 rounded-lg border border-slate-200 font-medium text-slate-700 hover:bg-slate-50 transition"

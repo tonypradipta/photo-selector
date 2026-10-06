@@ -69,8 +69,8 @@ export default function RegisterPage() {
       <div className="w-full max-w-[460px]">
         <div className="mb-8 flex flex-col items-center gap-3 text-center">
           <div className="flex items-center gap-3">
-            <img src="/logo.png" alt="Perumda Photo Selector" className="size-10 rounded-xl border border-blue-200 bg-white object-contain p-1 shadow-2xs" />
-            <span className="text-lg font-bold tracking-tight text-slate-900">Perumda Photo Selector</span>
+            <img src="/logo.png" alt="Perumda Photo" className="size-10 rounded-xl border border-blue-200 bg-white object-contain p-1 shadow-2xs" />
+            <span className="text-lg font-bold tracking-tight text-slate-900">Perumda Photo</span>
           </div>
           <p className="text-xs sm:text-sm font-medium text-slate-500">Daftar akun fotografer & studio baru</p>
         </div>
@@ -158,7 +158,7 @@ export default function RegisterPage() {
           )}
         </div>
 
-        <p className="mt-6 text-center text-xs text-slate-400">Perumda Photo Selector · Khusus fotografer & studio</p>
+        <p className="mt-6 text-center text-xs text-slate-400">Perumda Photo · Khusus fotografer & studio</p>
       </div>
     </main>
   )

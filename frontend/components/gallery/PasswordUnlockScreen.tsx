@@ -40,11 +40,11 @@ export function PasswordUnlockScreen({ token }: { token: string }) {
         <div className="mb-6 flex items-center justify-center gap-3">
           <img
             src="/logo.png"
-            alt="Perumda Photo Selector"
+            alt="Perumda Photo"
             className="size-9 rounded-xl border border-blue-200 bg-white object-contain p-0.5 shadow-2xs"
           />
           <span className="text-base font-bold text-slate-900">
-            Perumda Photo Selector
+            Perumda Photo
           </span>
         </div>
         <form

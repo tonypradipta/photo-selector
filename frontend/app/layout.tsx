@@ -4,7 +4,7 @@ import { LanguageProvider } from '@/lib/language-context'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Perumda Photo Selector — Client proofing for photographers',
+  title: 'Perumda Photo — Client proofing for photographers',
   description: 'A calm, simple way to share galleries and collect client photo selections.',
   referrer: 'no-referrer',
   generator: 'v0.app',
