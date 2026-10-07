@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { getApiBaseUrl } from '@/lib/config'
 
 export async function POST(
   request: NextRequest,
@@ -8,7 +9,7 @@ export async function POST(
     const { token } = await params
     const cookieHeader = request.headers.get('cookie') || ''
     const body = await request.json()
-    const apiBase = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
+    const apiBase = getApiBaseUrl()
     const payload = {
       photo_id: body.photo_id ?? body.photoId,
       selected: Boolean(body.selected),
