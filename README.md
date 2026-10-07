@@ -158,7 +158,7 @@ npm run start
 
 Aplikasi ini **bukan static frontend**. Project menggunakan SSR, Server Actions, middleware/proxy, dynamic rendering, dan Next.js API routes. Karena itu deploy sebagai **Next.js/Node.js Web App**, bukan sebagai file HTML statis.
 
-Hostinger saat ini mendukung deployment Next.js melalui Node.js hosting, termasuk SSR dan API routes. urlDokumentasi deployment Next.js Hostingerhttps://www.hostinger.com/id/web-apps-hosting/nextjs-hosting
+Hostinger saat ini mendukung deployment Next.js melalui Node.js hosting, termasuk SSR dan API routes. [Dokumentasi deployment Next.js Hostinger](https://www.hostinger.com/id/web-apps-hosting/nextjs-hosting)
 
 ### Build settings
 
@@ -183,7 +183,7 @@ NEXT_PUBLIC_API_URL=https://api.your-domain.com
 
 Jangan memasukkan credential database, Google Service Account, private key, atau secret backend ke repository.
 
-Hostinger menyediakan pengaturan environment variable pada proses deployment/redeploy. urlPengaturan environment variable Hostingerhttps://www.hostinger.com/support/how-to-add-environment-variables-during-node-js-application-deployment/
+Hostinger menyediakan pengaturan environment variable pada proses deployment/redeploy. [Pengaturan environment variable Hostinger](https://www.hostinger.com/support/how-to-add-environment-variables-during-node-js-application-deployment/)
 
 ### Alur production
 
@@ -309,7 +309,7 @@ Jika deployment gagal:
 4. Periksa build logs.
 5. Periksa runtime logs jika build berhasil tetapi aplikasi tidak dapat dibuka.
 
-Hostinger menyarankan pengecekan build command, Node.js version, environment variables, dan lokasi `package.json` ketika deployment gagal. urlPanduan troubleshooting Node.js Hostingerhttps://www.hostinger.com/support/fix-failed-build-application-error-hostinger-node-js/
+Hostinger menyarankan pengecekan build command, Node.js version, environment variables, dan lokasi `package.json` ketika deployment gagal. [Panduan troubleshooting Node.js Hostinger](https://www.hostinger.com/support/fix-failed-build-application-error-hostinger-node-js/)
 
 ## 📌 Status
 
