@@ -1,6 +1,7 @@
 import { type NextRequest, NextResponse } from 'next/server'
+import { getApiBaseUrl } from '@/lib/config'
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
+const API_BASE = getApiBaseUrl()
 
 // Routes accessible without authentication
 const PUBLIC_ROUTES = ['/login', '/register', '/signup', '/forgot-password', '/update-password']
