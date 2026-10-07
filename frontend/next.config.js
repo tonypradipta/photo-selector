@@ -1,6 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Hostinger runs Next.js as a Node.js application.
   output: 'standalone',
+  poweredByHeader: false,
+  compress: true,
   typescript: {
     ignoreBuildErrors: true,
   },
