@@ -1,7 +1,8 @@
 import { NextRequest } from 'next/server'
+import { getApiBaseUrl } from '@/lib/config'
 
 export function laravelBaseUrl(): string {
-  return process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
+  return getApiBaseUrl()
 }
 
 export function laravelAuthHeaders(request: NextRequest, extra: Record<string, string> = {}): Record<string, string> {
