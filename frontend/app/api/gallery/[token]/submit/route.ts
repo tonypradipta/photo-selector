@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { getApiBaseUrl } from '@/lib/config'
 
 export async function POST(
   request: NextRequest,
@@ -8,7 +9,7 @@ export async function POST(
     const { token } = await params
     const cookieHeader = request.headers.get('cookie') || ''
     const body = await request.json().catch(() => ({}))
-    const apiBase = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
+    const apiBase = getApiBaseUrl()
     const response = await fetch(`${apiBase}/api/gallery/${token}/submit`, {
       method: 'POST',
       headers: { Accept: 'application/json', 'Content-Type': 'application/json', Cookie: cookieHeader },
