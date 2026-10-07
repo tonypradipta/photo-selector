@@ -1,418 +1,262 @@
 # 📸 Perumda Photo Selector
 
-> Platform pemilihan foto berbasis web yang membantu fotografer mengelola galeri proyek, membagikan foto kepada klien, menerima pilihan foto, hingga mengirimkan hasil foto terpilih secara terstruktur.
+> Platform photo proofing dan client selection untuk fotografer — dibangun dengan Next.js dan terhubung ke Laravel REST API yang dideploy secara terpisah.
 
-**Perumda Photo Selector** dirancang untuk menyederhanakan alur kerja fotografer dan klien dalam proses **photo proofing → photo selection → editing → delivery**. Aplikasi menggunakan arsitektur **Next.js sebagai frontend** dan **Laravel sebagai REST API backend**, dengan integrasi Google Drive untuk pengelolaan foto.
+Perumda Photo Selector membantu fotografer mengelola project, membagikan galeri kepada klien, menerima pilihan foto, memantau proses editing, hingga mengirimkan hasil foto final.
 
-[![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=next.js)](https://nextjs.org/)
-[![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=white)](https://react.dev/)
-[![Laravel](https://img.shields.io/badge/Laravel-10-FF2D20?logo=laravel&logoColor=white)](https://laravel.com/)
-[![PHP](https://img.shields.io/badge/PHP-8.1%2B-777BB4?logo=php&logoColor=white)](https://www.php.net/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.7-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+## ✨ Fitur
 
----
-
-## ✨ Tentang Project
-
-Dalam workflow fotografi, proses memilih foto dari ratusan hingga ribuan file dapat memakan banyak waktu jika dilakukan melalui chat atau folder biasa.
-
-Project ini menyediakan satu workspace terpusat untuk:
-
-- 👤 **Fotografer** membuat dan mengelola proyek.
-- 🖼️ **Klien** membuka galeri melalui tautan khusus.
-- ❤️ **Klien** memilih foto yang diinginkan.
-- 🔐 Galeri dapat dilindungi dengan password/PIN dan dikunci setelah proses seleksi selesai.
-- ☁️ **Google Drive** digunakan sebagai sumber dan penyimpanan file foto.
-- ✨ Foto terpilih dapat masuk ke workflow editing.
-- 📦 Foto final dapat dikirim melalui halaman delivery.
-- 🌐 Klien dapat mengunduh foto individual atau paket ZIP.
-- 🌍 Antarmuka mendukung pergantian bahasa.
-
----
-
-## 🚀 Fitur Utama
-
-### 📊 Dashboard Fotografer
-
-Dashboard menyediakan workspace untuk mengelola seluruh aktivitas proyek:
-
-- Daftar proyek dan statusnya
-- Statistik foto terpilih dan foto terkirim
-- Pencarian proyek
-- Manajemen klien
-- Profil dan pengaturan
-- Copy link galeri klien
-- Sinkronisasi foto
-- Lock/unlock proyek
-
-### 🖼️ Client Photo Selection
-
-Klien dapat membuka galeri menggunakan token unik tanpa perlu membuat akun.
-
-Fitur yang tersedia:
-
-- Gallery berbasis token
-- Password protection
-- Preview foto
-- Pemilihan dan pembatalan pilihan foto
-- Batas maksimal jumlah foto yang dapat dipilih
-- Review pilihan sebelum submit
-- Konfirmasi final selection
-- Status galeri setelah dikunci
-
-### ✂️ Selected Photos Workflow
-
-Foto yang telah dipilih klien dapat dikelola melalui workflow terpisah:
-
-1. Foto dipilih oleh klien.
-2. Foto masuk ke daftar **Foto Terpilih**.
-3. Fotografer dapat memulai proses editing.
-4. Hasil dapat dilanjutkan ke proses delivery.
-
-### 📦 Photo Delivery
-
-Setelah foto selesai diedit, fotografer dapat membuat proses delivery:
-
-- Menentukan folder hasil foto.
-- Sinkronisasi folder.
-- Monitoring status sinkronisasi.
-- Mengirim delivery link kepada klien.
-- Revoke delivery jika diperlukan.
-- Menandai delivery sebagai selesai.
-- Download foto satu per satu.
-- Download seluruh foto dalam format ZIP.
-
-### ☁️ Google Drive Integration
-
-Backend menyediakan service khusus untuk integrasi Google Drive, termasuk:
-
-- Membaca foto dari folder.
-- Sinkronisasi foto ke project.
-- Mengelola folder hasil editing.
-- Mengakses file berdasarkan metadata/folder.
-
----
+- 📊 Dashboard project fotografer
+- 🖼️ Client photo selection berbasis token
+- 🔐 Password/PIN protection untuk galeri dan delivery
+- ❤️ Pemilihan foto dengan batas maksimal
+- ☁️ Integrasi Google Drive melalui backend
+- ✂️ Workflow selected photos → editing
+- 📦 Photo delivery dan download ZIP
+- 🌍 Dukungan bahasa Indonesia/Inggris
+- 🔄 Auto-refresh untuk data project
+- 📱 Responsive UI
 
 ## 🏗️ Arsitektur
 
-Project menggunakan pendekatan **separated frontend + backend**:
+Repository ini **khusus untuk aplikasi Next.js**. Laravel backend tidak lagi disimpan di repository ini karena dideploy pada domain/subdomain API terpisah.
 
 ```
-┌───────────────────────────────┐
-│           CLIENT              │
-│       Browser / Mobile        │
-└───────────────┬───────────────┘
-                │
-                ▼
-┌───────────────────────────────┐
-│       Next.js Frontend        │
-│   React + TypeScript +        │
-│       Tailwind CSS            │
-└───────────────┬───────────────┘
-                │ REST API
-                ▼
-┌───────────────────────────────┐
-│        Laravel Backend        │
-│    REST API + Sanctum Auth    │
-└───────┬───────────┬───────────┘
-        │           │
-        ▼           ▼
-   ┌─────────┐  ┌──────────────┐
-   │ MySQL   │  │ Google Drive │
-   └─────────┘  └──────────────┘
+Browser
+   │
+   ▼
+┌──────────────────────────────┐
+│ Next.js App                  │
+│ photo-selector               │
+│ Hostinger / Node.js Hosting  │
+│                              │
+│ SSR + Server Actions         │
+│ Next.js API proxy routes     │
+└──────────────┬───────────────┘
+               │ HTTPS REST API
+               ▼
+┌──────────────────────────────┐
+│ Laravel REST API             │
+│ https://api.example.com      │
+│                              │
+│ Sanctum/Auth + MySQL         │
+│ Google Drive integration     │
+└──────────────────────────────┘
 ```
 
 ### Struktur repository
 
 ```
 photo-selector/
-├── backend/                 # Laravel REST API
-│   ├── app/
-│   │   ├── Http/
-│   │   │   └── Controllers/
-│   │   ├── Models/
-│   │   └── Services/
-│   ├── config/
-│   ├── database/
-│   ├── routes/
-│   ├── storage/
-│   ├── .env.example
-│   └── composer.json
-│
-├── frontend/                # Next.js application
-│   ├── app/
-│   │   ├── api/
-│   │   ├── delivery/
-│   │   ├── projects/
-│   │   └── select/
-│   ├── components/
-│   │   ├── dashboard/
-│   │   ├── delivery/
-│   │   ├── gallery/
-│   │   └── project-detail/
-│   ├── lib/
-│   ├── public/
-│   └── package.json
-│
+├── app/
+│   ├── (auth)/
+│   ├── api/
+│   ├── delivery/
+│   ├── projects/
+│   └── select/
+├── components/
+│   ├── dashboard/
+│   ├── delivery/
+│   ├── gallery/
+│   └── project-detail/
+├── lib/
+│   ├── api-client.ts
+│   ├── config.ts
+│   ├── laravel-proxy.ts
+│   └── ...
+├── public/
+├── .env.example
+├── next.config.js
+├── package.json
+├── package-lock.json
 └── README.md
 ```
 
----
-
 ## 🛠️ Tech Stack
 
-### Frontend
+- **Next.js 16**
+- **React 19**
+- **TypeScript 5.7**
+- **Tailwind CSS 4**
+- **shadcn/ui**
+- **Lucide React**
+- **Zod**
+- **Sharp**
+- **JSZip**
 
-| Teknologi | Kegunaan |
-|---|---|
-| **Next.js 16** | React framework dan application routing |
-| **React 19** | UI component development |
-| **TypeScript** | Static typing |
-| **Tailwind CSS 4** | Styling dan responsive UI |
-| **shadcn/ui** | UI primitives |
-| **Lucide React** | Icon system |
-| **Zod** | Validation |
-| **Sharp** | Image processing |
-| **JSZip** | ZIP generation/download |
-| **Google APIs** | Integrasi Google services |
+Backend API:
 
-### Backend
+- **Laravel**
+- **PHP**
+- **Laravel Sanctum**
+- **MySQL**
+- **Google Drive API**
 
-| Teknologi | Kegunaan |
-|---|---|
-| **Laravel 10** | REST API framework |
-| **PHP 8.1+** | Backend runtime |
-| **Laravel Sanctum** | Authentication |
-| **MySQL** | Relational database |
-| **Guzzle** | HTTP client |
-| **Google APIs** | Integrasi Google Drive |
+> Backend API dikelola dan dideploy secara terpisah dari repository ini.
 
----
-
-## 🔄 Workflow Aplikasi
-
-### 1. Buat Project
-
-Fotografer membuat project baru dan mengatur informasi klien serta batas jumlah foto yang dapat dipilih.
-
-### 2. Sinkronisasi Foto
-
-Foto dari Google Drive disinkronisasikan ke project.
-
-### 3. Bagikan Gallery
-
-Sistem menghasilkan tautan unik untuk klien.
-
-Contoh:
-
-```
-https://your-domain.com/select/{token}
-```
-
-### 4. Client Memilih Foto
-
-Klien membuka gallery, melihat preview, kemudian memilih foto yang diinginkan.
-
-### 5. Submit Selection
-
-Klien melakukan review dan mengirim pilihan final.
-
-### 6. Editing
-
-Fotografer melihat daftar foto terpilih dan memproses foto tersebut.
-
-### 7. Delivery
-
-Foto yang sudah selesai diedit dimasukkan ke workflow delivery.
-
-### 8. Client Download
-
-Klien membuka delivery link dan dapat mengunduh foto secara individual maupun sebagai ZIP.
-
----
-
-## 🔐 Authentication & Security
-
-Backend menggunakan **Laravel Sanctum** untuk protected API routes.
-
-Secara umum endpoint dibagi menjadi:
-
-### Public
-
-Digunakan oleh client-facing pages:
-
-- Authentication
-- Gallery
-- Gallery unlock
-- Photo selection
-- Gallery submission
-- Delivery portal
-- Photo download
-- ZIP download
-
-### Protected
-
-Digunakan oleh fotografer yang telah login:
-
-- Profile
-- Project management
-- Selected photos
-- Delivery management
-- Project synchronization
-
-> **Catatan:** Jangan pernah commit file `.env`, credential Google Service Account, API key, database password, atau secret lainnya ke repository.
-
----
-
-## ⚙️ Instalasi
+## 🚀 Menjalankan Secara Lokal
 
 ### Prerequisites
 
-Pastikan environment sudah memiliki:
+- Node.js 20, 22, atau 24
+- npm
+- Laravel API yang sedang berjalan
 
-- **PHP 8.1 atau lebih baru**
-- **Composer**
-- **Node.js**
-- **npm**
-- **MySQL**
-- **Google Cloud Project** jika menggunakan Google Drive integration
-
----
-
-### 1. Clone Repository
+### 1. Clone
 
 ```bash
 git clone https://github.com/tonypradipta/photo-selector.git
 cd photo-selector
 ```
 
----
-
-### 2. Setup Backend
-
-Masuk ke folder backend:
-
-```bash
-cd backend
-```
-
-Install dependency:
-
-```bash
-composer install
-```
-
-Buat file environment:
-
-```bash
-cp .env.example .env
-```
-
-Generate application key:
-
-```bash
-php artisan key:generate
-```
-
-Atur database pada `.env`:
-
-```env
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=photo_selector
-DB_USERNAME=root
-DB_PASSWORD=
-```
-
-Jalankan migration:
-
-```bash
-php artisan migrate
-```
-
-Jalankan backend:
-
-```bash
-php artisan serve
-```
-
-Backend secara default tersedia di:
-
-```
-http://localhost:8000
-```
-
----
-
-### 3. Setup Google Drive
-
-Buat Google Cloud Project dan aktifkan Google Drive API.
-
-Kemudian masukkan credential pada `backend/.env`:
-
-```env
-GOOGLE_PROJECT_ID=
-GOOGLE_SERVICE_ACCOUNT_EMAIL=
-GOOGLE_PRIVATE_KEY=
-GOOGLE_API_KEY=
-```
-
-Folder Google Drive yang digunakan aplikasi perlu diberikan akses kepada service account sesuai kebutuhan aplikasi.
-
----
-
-### 4. Setup Frontend
-
-Buka terminal baru:
-
-```bash
-cd frontend
-```
-
-Install dependency:
+### 2. Install dependency
 
 ```bash
 npm install
 ```
 
-Buat file:
+### 3. Environment
 
-```
-.env.local
+Salin `.env.example` menjadi `.env.local`:
+
+```bash
+cp .env.example .env.local
 ```
 
-Kemudian konfigurasi URL backend:
+Isi:
 
 ```env
 NEXT_PUBLIC_API_URL=http://localhost:8000
 ```
 
-Jalankan development server:
+Untuk production:
+
+```env
+NEXT_PUBLIC_API_URL=https://api.your-domain.com
+```
+
+### 4. Development
 
 ```bash
 npm run dev
 ```
 
-Frontend tersedia di:
+Buka:
 
 ```
 http://localhost:3000
 ```
 
----
+### 5. Production test
 
-## 📡 API Overview
-
-API utama berada di:
-
-```
-backend/routes/api.php
+```bash
+npm run build
+npm run start
 ```
 
-### Authentication
+## 🌐 Deployment ke Hostinger
+
+Aplikasi ini **bukan static frontend**. Project menggunakan SSR, Server Actions, middleware/proxy, dynamic rendering, dan Next.js API routes. Karena itu deploy sebagai **Next.js/Node.js Web App**, bukan sebagai file HTML statis.
+
+Hostinger saat ini mendukung deployment Next.js melalui Node.js hosting, termasuk SSR dan API routes. [Dokumentasi deployment Next.js Hostinger](https://www.hostinger.com/id/web-apps-hosting/nextjs-hosting)
+
+### Build settings
+
+Gunakan:
+
+```
+Framework: Next.js
+Node.js: 22.x
+Build command: npm run build
+Start command: npm run start
+```
+
+Repository sekarang memiliki `package.json` langsung di root agar Hostinger dapat mendeteksi aplikasi tanpa harus masuk ke folder `frontend/`.
+
+### Environment variable
+
+Tambahkan pada Hostinger:
+
+```env
+NEXT_PUBLIC_API_URL=https://api.your-domain.com
+```
+
+Jangan memasukkan credential database, Google Service Account, private key, atau secret backend ke repository.
+
+Hostinger menyediakan pengaturan environment variable pada proses deployment/redeploy. [Pengaturan environment variable Hostinger](https://www.hostinger.com/support/how-to-add-environment-variables-during-node-js-application-deployment/)
+
+### Alur production
+
+```
+https://your-domain.com
+        │
+        │ Next.js
+        ▼
+   Hostinger
+        │
+        │ HTTPS
+        ▼
+https://api.your-domain.com
+        │
+        │ Laravel REST API
+        ▼
+   MySQL / Google Drive
+```
+
+## 🔐 Catatan CORS & Sanctum
+
+Karena frontend dan backend berada pada origin yang berbeda, backend Laravel harus mengizinkan domain frontend production.
+
+Contoh:
+
+```
+Frontend:
+https://photo.your-domain.com
+
+API:
+https://api.your-domain.com
+```
+
+Konfigurasi Laravel harus disesuaikan agar request dari frontend diperbolehkan dan credential/cookie Sanctum bekerja sesuai arsitektur authentication backend.
+
+Jika menggunakan bearer token, pastikan endpoint API menerima:
+
+```
+Authorization: Bearer <token>
+```
+
+## 🔌 API Proxy
+
+Beberapa operasi client-facing menggunakan Next.js API routes sebagai proxy:
+
+```
+/api/gallery/[token]/selection
+/api/gallery/[token]/submit
+/api/gallery/[token]/unlock
+/api/projects/[id]/photos
+/api/projects/[id]/sync
+```
+
+Route tersebut meneruskan request ke Laravel API menggunakan `NEXT_PUBLIC_API_URL`.
+
+Dengan demikian, Next.js tetap berfungsi sebagai application server/BFF untuk bagian tertentu, sementara seluruh business logic dan data utama tetap berada di Laravel.
+
+## 🔄 Workflow
+
+1. Fotografer login.
+2. Fotografer membuat project.
+3. Foto project disinkronkan dari Google Drive.
+4. Sistem membuat link galeri client.
+5. Klien membuka galeri dan memilih foto.
+6. Pilihan dikirim ke Laravel API.
+7. Fotografer memproses foto terpilih.
+8. Foto hasil editing disinkronkan.
+9. Delivery dibuat.
+10. Klien mengunduh foto final.
+
+## 📡 Endpoint Utama
+
+Authentication:
 
 ```
 POST /api/auth/register
@@ -423,7 +267,7 @@ POST /api/auth/logout
 GET  /api/auth/user
 ```
 
-### Gallery
+Gallery:
 
 ```
 GET  /api/gallery/{token}
@@ -432,7 +276,7 @@ POST /api/gallery/{token}/selection
 POST /api/gallery/{token}/submit
 ```
 
-### Projects
+Projects:
 
 ```
 GET    /api/projects
@@ -445,175 +289,38 @@ POST   /api/projects/{id}/sync
 GET    /api/projects/{id}/photos
 ```
 
-### Selected Photos
+## 🔒 Security
 
-```
-GET  /api/selected-photos
-GET  /api/selected-photos/{id}
-POST /api/selected-photos/{id}/start-editing
-GET  /api/selected-photos/{id}/export
-```
+- Jangan commit `.env.local`.
+- Jangan commit API key atau credential Google.
+- Gunakan HTTPS pada production.
+- Gunakan domain API khusus untuk Laravel.
+- Batasi CORS Laravel hanya ke origin frontend yang diperlukan.
+- Jangan menaruh secret backend pada `NEXT_PUBLIC_*` karena variabel tersebut dapat tersedia di browser.
+- Review token/cookie authentication sebelum production.
 
-### Delivery
+## 🧪 Troubleshooting Hostinger
 
-```
-GET  /api/deliveries
-GET  /api/deliveries/{id}
-PUT  /api/deliveries/{id}/folder
-POST /api/deliveries/{id}/sync
-GET  /api/deliveries/{id}/sync-status
-POST /api/deliveries/{id}/send
-POST /api/deliveries/{id}/revoke/{deliveryId}
-POST /api/deliveries/{id}/complete
-```
+Jika deployment gagal:
 
-### Public Delivery
+1. Pastikan `package.json` berada di root repository.
+2. Pastikan Node.js version sesuai dengan `engines`.
+3. Pastikan `NEXT_PUBLIC_API_URL` sudah diisi.
+4. Periksa build logs.
+5. Periksa runtime logs jika build berhasil tetapi aplikasi tidak dapat dibuka.
 
-```
-GET /api/delivery/{token}
-POST /api/delivery/{token}/pin
-GET /api/delivery/{token}/photos/{photoId}/download
-GET /api/delivery/{token}/zip
-```
+Hostinger menyarankan pengecekan build command, Node.js version, environment variables, dan lokasi `package.json` ketika deployment gagal. [Panduan troubleshooting Node.js Hostinger](https://www.hostinger.com/support/fix-failed-build-application-error-hostinger-node-js/)
 
----
+## 📌 Status
 
-## 🧪 Development
-
-### Frontend
-
-```bash
-cd frontend
-
-npm run dev
-```
-
-Production build:
-
-```bash
-npm run build
-npm run start
-```
-
-### Backend
-
-```bash
-cd backend
-
-php artisan serve
-```
-
-Useful Laravel commands:
-
-```bash
-php artisan migrate
-php artisan route:list
-php artisan config:clear
-php artisan cache:clear
-```
-
----
-
-## 🌐 Deployment
-
-Untuk deployment production, pisahkan deployment frontend dan backend.
-
-### Frontend
-
-Next.js dapat dideploy ke platform yang mendukung Node.js/Next.js.
-
-Set environment variable:
-
-```env
-NEXT_PUBLIC_API_URL=https://api.your-domain.com
-```
-
-### Backend
-
-Laravel membutuhkan:
-
-- PHP 8.1+
-- Composer
-- MySQL
-- Web server / PHP process manager
-- Environment variables
-- Storage permission
-- Google API credentials
-
-Pastikan backend menggunakan HTTPS pada production dan domain frontend telah dikonfigurasi pada Sanctum.
-
----
-
-## 📌 Status Project
-
-Project ini sedang dikembangkan dan dapat mengalami perubahan pada:
-
-- UI/UX
-- API contract
-- Database schema
-- Google Drive synchronization
-- Photo delivery workflow
-- Authentication flow
-
-Gunakan branch terpisah untuk pengembangan fitur baru.
-
----
-
-## 🤝 Contributing
-
-Kontribusi sangat terbuka.
-
-1. Fork repository.
-2. Buat branch baru:
-
-```bash
-git checkout -b feature/nama-fitur
-```
-
-3. Commit perubahan:
-
-```bash
-git commit -m "feat: add nama fitur"
-```
-
-4. Push branch:
-
-```bash
-git push origin feature/nama-fitur
-```
-
-5. Buat Pull Request.
-
----
-
-## 🐛 Bug & Feature Request
-
-Jika menemukan bug atau memiliki ide fitur, silakan gunakan **GitHub Issues** pada repository ini.
-
-Saat melaporkan bug, sertakan:
-
-- Deskripsi masalah
-- Langkah untuk reproduksi
-- Expected behavior
-- Actual behavior
-- Screenshot jika diperlukan
-- Environment yang digunakan
-
----
-
-## 📄 License
-
-Project ini menggunakan lisensi **MIT**.
-
----
+Project sedang aktif dikembangkan. Perubahan dapat terjadi pada UI, API contract, authentication flow, Google Drive synchronization, dan delivery workflow.
 
 ## 👨‍💻 Author
 
 **Tony Pradipta**
 
-GitHub: [@tonypradipta](https://github.com/tonypradipta)
-
-Repository: [photo-selector](https://github.com/tonypradipta/photo-selector)
+- GitHub: [@tonypradipta](https://github.com/tonypradipta)
+- Repository: [photo-selector](https://github.com/tonypradipta/photo-selector)
 
 ---
 
