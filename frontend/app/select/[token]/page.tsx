@@ -1,4 +1,5 @@
 import { cookies } from 'next/headers'
+import { getApiBaseUrl } from '@/lib/config'
 import SelectGalleryClient from '@/components/gallery'
 import { ImageOff } from 'lucide-react'
 import type { GalleryPhoto, GalleryProject } from '@/components/gallery/types'
@@ -35,7 +36,7 @@ export default async function SelectGalleryPage({
   params: Promise<{ token: string }>
 }) {
   const { token } = await params
-  const apiBase = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
+  const apiBase = getApiBaseUrl()
 
   try {
     const cookieStore = await cookies()
