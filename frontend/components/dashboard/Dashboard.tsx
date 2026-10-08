@@ -56,6 +56,11 @@ export function PhotoSelectorDashboard({ initialProjects, userEmail, initialProf
   const [toast, setToast] = useState<{ message: string; type: 'error' | 'success' | 'info' } | null>(null)
   const [isRefreshing, setIsRefreshing] = useState(false)
   const [lastRefreshed, setLastRefreshed] = useState<Date>(new Date())
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   const appUrl = typeof window !== 'undefined' ? window.location.origin : process.env.NEXT_PUBLIC_APP_URL ?? ''
 
@@ -447,7 +452,8 @@ export function PhotoSelectorDashboard({ initialProjects, userEmail, initialProf
             {/* Live indicator */}
             <div
               className="hidden md:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-200"
-              title={`Terakhir diperbarui: ${lastRefreshed.toLocaleTimeString('id-ID')}`}
+              title={mounted ? `Terakhir diperbarui: ${lastRefreshed.toLocaleTimeString('id-ID')}` : undefined}
+              suppressHydrationWarning
             >
               <span
                 className={`size-2 rounded-full ${isRefreshing ? 'bg-amber-400 animate-pulse' : 'bg-emerald-500 animate-[pulse_2s_ease-in-out_infinite]'

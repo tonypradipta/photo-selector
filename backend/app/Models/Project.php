@@ -88,27 +88,30 @@ class Project extends Model
     public function getEditedPreviewThumbnailsAttribute(): array
     {
         $edited = $this->editedPhotos()
-            ->whereNotNull('drive_thumbnail_url')
-            ->where('drive_thumbnail_url', '!=', '')
             ->limit(4)
-            ->pluck('drive_thumbnail_url')
-            ->toArray();
+            ->get();
 
-        return array_slice($edited, 0, 4);
+        $urls = [];
+        foreach ($edited as $ep) {
+            $urls[] = url("/api/photos/{$ep->id}/preview?type=edited");
+        }
+
+        return array_slice($urls, 0, 4);
     }
 
     public function getPreviewThumbnailsAttribute(): array
     {
         // 1. Check edited photos first
         $edited = $this->editedPhotos()
-            ->whereNotNull('drive_thumbnail_url')
-            ->where('drive_thumbnail_url', '!=', '')
             ->limit(4)
-            ->pluck('drive_thumbnail_url')
-            ->toArray();
+            ->get();
 
-        if (count($edited) > 0) {
-            return array_slice($edited, 0, 4);
+        $urls = [];
+        if ($edited->isNotEmpty()) {
+            foreach ($edited as $ep) {
+                $urls[] = url("/api/photos/{$ep->id}/preview?type=edited");
+            }
+            return array_slice($urls, 0, 4);
         }
 
         // 2. Check selections next
@@ -117,14 +120,9 @@ class Project extends Model
             ->limit(4)
             ->get();
 
-        $urls = [];
         foreach ($selections as $sel) {
             if ($sel->photo) {
-                if (!empty($sel->photo->drive_thumbnail_url)) {
-                    $urls[] = $sel->photo->drive_thumbnail_url;
-                } else {
-                    $urls[] = url("/api/photos/{$sel->photo->id}/preview");
-                }
+                $urls[] = url("/api/photos/{$sel->photo->id}/preview");
             }
         }
 
@@ -140,11 +138,7 @@ class Project extends Model
             ->get();
 
         foreach ($photos as $photo) {
-            if (!empty($photo->drive_thumbnail_url)) {
-                $urls[] = $photo->drive_thumbnail_url;
-            } else {
-                $urls[] = url("/api/photos/{$photo->id}/preview");
-            }
+            $urls[] = url("/api/photos/{$photo->id}/preview");
         }
 
         return array_slice($urls, 0, 4);

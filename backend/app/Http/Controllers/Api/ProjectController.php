@@ -319,9 +319,17 @@ class ProjectController extends Controller
         return strtoupper(Str::limit($name, 20, ''));
     }
 
-    public function previewPhoto(string $id, GoogleDriveService $driveService)
+    public function previewPhoto(Request $request, string $id, GoogleDriveService $driveService)
     {
-        $photo = Photo::find($id);
+        $type = $request->query('type');
+        $photo = null;
+
+        if ($type === 'edited') {
+            $photo = \App\Models\EditedPhoto::find($id);
+        } else {
+            $photo = Photo::find($id) ?? \App\Models\EditedPhoto::find($id);
+        }
+
         if (! $photo) {
             return response('Photo not found', 404);
         }

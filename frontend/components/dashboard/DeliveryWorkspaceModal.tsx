@@ -211,22 +211,22 @@ export function DeliveryWorkspaceModal({
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-slate-950/60 backdrop-blur-md animate-modal-backdrop">
-      <div className="relative flex flex-col w-full max-w-4xl max-h-[92vh] bg-white rounded-2xl shadow-2xl border border-blue-100 overflow-hidden animate-modal-dialog">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-6 bg-slate-950/60 backdrop-blur-md animate-modal-backdrop overflow-y-auto">
+      <div className="relative flex flex-col w-full max-w-4xl max-h-[92vh] my-auto bg-white rounded-2xl shadow-2xl border border-blue-100 overflow-hidden animate-modal-dialog">
         {/* Modal Header */}
-        <div className="flex items-center justify-between px-6 py-4 sm:py-5 border-b border-brand-100 bg-gradient-to-r from-brand-50/80 via-white to-aqua-100/40">
+        <div className="flex items-center justify-between px-4 sm:px-6 py-3.5 sm:py-5 border-b border-brand-100 bg-gradient-to-r from-brand-50/80 via-white to-aqua-100/40">
           <div className="flex items-center gap-3 min-w-0">
-            <div className="flex size-10 items-center justify-center rounded-xl bg-brand-gradient text-white shadow-glow shrink-0">
+            <div className="flex size-9 sm:size-10 items-center justify-center rounded-xl bg-brand-gradient text-white shadow-glow shrink-0">
               <Send size={18} />
             </div>
             <div className="min-w-0">
-              <div className="flex items-center gap-2.5 flex-wrap">
-                <h2 className="text-base sm:text-lg font-semibold font-heading text-slate-900 leading-normal">
+              <div className="flex items-center gap-2 flex-wrap">
+                <h2 className="text-[14.5px] sm:text-lg font-semibold font-heading text-slate-900 leading-normal truncate">
                   {loading ? 'Memuat Workspace...' : `Hasil Edit: ${project?.name}`}
                 </h2>
                 {project && (
                   <span
-                    className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-medium font-body shrink-0 ${project.status === 'delivered'
+                    className={`inline-flex items-center px-2 sm:px-2.5 py-0.5 rounded-full text-[10.5px] sm:text-[11px] font-medium font-body shrink-0 ${project.status === 'delivered'
                         ? 'bg-cyan-100 text-cyan-700 border border-cyan-300'
                         : project.status === 'completed'
                           ? 'bg-emerald-100 text-emerald-700 border border-emerald-300'
@@ -241,7 +241,7 @@ export function DeliveryWorkspaceModal({
                   </span>
                 )}
               </div>
-              <p className="mt-0.5 text-xs font-normal font-body text-slate-500 truncate">
+              <p className="mt-0.5 text-[11.5px] sm:text-xs font-normal font-body text-slate-500 truncate">
                 Klien: <span className="text-slate-800 font-medium">{project?.client_name || '...'}</span>
               </p>
             </div>
@@ -249,7 +249,7 @@ export function DeliveryWorkspaceModal({
 
           <button
             onClick={onClose}
-            className="flex size-9 shrink-0 items-center justify-center rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition"
+            className="flex size-8 sm:size-9 shrink-0 items-center justify-center rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition"
           >
             <X size={18} />
           </button>
@@ -269,7 +269,7 @@ export function DeliveryWorkspaceModal({
                 type="button"
                 onClick={() => handleStepClick(s.num as any)}
                 title={!allowed ? `Selesaikan Proses ${s.num - 1} terlebih dahulu` : s.title}
-                className={`flex items-center gap-3 p-3.5 text-left border-b-2 transition ${step === s.num
+                className={`flex items-center justify-center sm:justify-start gap-2.5 sm:gap-3 p-2.5 sm:p-3.5 text-left border-b-2 transition ${step === s.num
                     ? 'border-brand-600 bg-white font-bold text-brand-700 shadow-2xs'
                     : allowed
                       ? 'border-transparent text-slate-600 hover:text-slate-900 hover:bg-slate-100/70'
@@ -304,16 +304,16 @@ export function DeliveryWorkspaceModal({
         </div>
 
         {/* Workspace Body */}
-        <div className="flex-1 overflow-y-auto p-6 bg-slate-50/50">
+        <div className="flex-1 overflow-y-auto p-3.5 sm:p-6 bg-slate-50/50 flex flex-col">
           {loading ? (
-            <div className="flex flex-col items-center justify-center py-20 gap-3 text-slate-400">
+            <div className="flex flex-col items-center justify-center py-20 gap-3 text-slate-400 my-auto">
               <Loader2 size={32} className="animate-spin text-blue-600" />
               <p className="text-sm font-medium">Memuat data delivery workspace...</p>
             </div>
           ) : step === 1 ? (
             /* STEP 1: Connect Folder */
-            <div className="flex flex-col gap-5 max-w-2xl mx-auto py-4">
-              <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-2xs flex flex-col gap-4">
+            <div className="flex flex-col justify-center gap-4 sm:gap-5 max-w-2xl w-full mx-auto my-auto py-2 sm:py-4">
+              <div className="bg-white p-4.5 sm:p-6 rounded-2xl border border-slate-200 shadow-2xs flex flex-col gap-4">
                 <div className="flex items-center gap-3 text-blue-600 font-semibold text-sm">
                   <FolderSync size={18} />
                   <span>Folder Google Drive Hasil Edit</span>
@@ -350,9 +350,9 @@ export function DeliveryWorkspaceModal({
             </div>
           ) : step === 2 ? (
             /* STEP 2: Sync & Match Verification */
-            <div className="flex flex-col gap-5">
+            <div className="flex flex-col gap-4 sm:gap-5 max-w-4xl w-full mx-auto my-auto py-2 sm:py-4">
               {/* Summary match banner */}
-              <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              <div className="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-2xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                 <div>
                   <h3 className="text-sm font-semibold font-heading text-slate-900">Status Pencocokan File (Auto-Matcher)</h3>
                   <p className="text-xs font-normal font-body text-slate-500 mt-0.5">
@@ -417,7 +417,7 @@ export function DeliveryWorkspaceModal({
               )}
 
               {/* Matched Photos Preview Table / Grid */}
-              <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs flex flex-col gap-3">
+              <div className="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-2xs flex flex-col gap-3">
                 <h4 className="text-xs font-bold text-slate-800 uppercase tracking-wider">
                   Foto yang Siap Dikirim ({syncStatus?.matched_count || 0})
                 </h4>
@@ -481,9 +481,9 @@ export function DeliveryWorkspaceModal({
             </div>
           ) : (
             /* STEP 3: Send & Share */
-            <div className="flex flex-col gap-5 max-w-2xl mx-auto py-2">
+            <div className="flex flex-col justify-center gap-4 sm:gap-5 max-w-2xl w-full mx-auto my-auto py-2 sm:py-4">
               {/* Delivery Configuration Form */}
-              <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-2xs flex flex-col gap-4">
+              <div className="bg-white p-4.5 sm:p-6 rounded-2xl border border-slate-200 shadow-2xs flex flex-col gap-4">
                 <div className="flex items-center gap-2 text-brand-600 font-bold text-sm">
                   <ShieldCheck size={18} />
                   <span>Konfigurasi Link Delivery Klien</span>
@@ -567,7 +567,7 @@ export function DeliveryWorkspaceModal({
 
               {/* Delivery Share Link & WhatsApp Section */}
               {activeDelivery && (
-                <div className="bg-white p-5 sm:p-6 rounded-2xl border border-emerald-200 bg-gradient-to-b from-emerald-50/30 to-white shadow-2xs flex flex-col gap-4">
+                <div className="bg-white p-4.5 sm:p-6 rounded-2xl border border-emerald-200 bg-gradient-to-b from-emerald-50/30 to-white shadow-2xs flex flex-col gap-4">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2 text-emerald-800 font-semibold font-heading text-sm">
                       <CheckCircle size={18} className="text-emerald-600" />
@@ -649,7 +649,7 @@ export function DeliveryWorkspaceModal({
         </div>
 
         {/* Modal Footer */}
-        <div className="flex items-center justify-between px-6 py-3 border-t border-slate-200 bg-white text-xs text-slate-500">
+        <div className="flex items-center justify-between px-4 sm:px-6 py-3 border-t border-slate-200 bg-white text-xs text-slate-500">
           <span>Delivery Workspace • Perumda Photo</span>
           <button
             onClick={onClose}
